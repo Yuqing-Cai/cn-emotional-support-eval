@@ -4,180 +4,136 @@
 
 **Chinese Fictional Emotional Reasoning Benchmark (CN-FERBench)**
 
-Chinese: **中文虚构/角色扮演对话中的情绪-关系推理评测**
+## Current Positioning
 
-This project evaluates whether language models can correctly infer **emotion, subtext, and interpersonal logic** in fictional / roleplay-style Chinese dialogue, and then generate responses that remain **in character** without major out-of-character (OOC) distortion.
+CN-FERBench should be understood as a **structured failure atlas and casebook for fictional dialogue models**, with a **benchmark-compatible pilot subset** retained as formal scaffolding.
+
+This means the project still values structured cases, comparison, and future evaluation compatibility. But it no longer treats the benchmark layer as the sole or even primary expression of the work.
+
+The stronger contribution of the repo is that it can identify and organize forms of failure that experienced fictional-dialogue users often recognize before they can easily name them.
 
 ## Core Problem
 
-Current dialogue evaluation usually does a decent job on broad categories such as:
+Public dialogue evaluation already covers many important areas, including:
 
-- general fluency
+- fluency
 - instruction following
-- emotional support in real-world scenarios
 - safety behavior
-- coarse persona consistency
+- broad persona consistency
+- some forms of emotional support quality
 
-But fictional / roleplay dialogue exposes a different class of failure.
+But fictional / roleplay dialogue exposes another class of failure.
 
-A model may sound fluent, kind, and even emotionally competent while still failing the scene by:
+A model may sound fluent, coherent, emotionally literate, and even superficially in character while still failing the scene by:
 
-- misreading the actual feeling beneath indirect wording
-- flattening relationship dynamics into generic comfort or advice
-- applying modern therapist-style language where it is OOC
-- violating worldview, lore, or character-specific emotional logic
-- resolving tension too quickly and thereby destroying characterization
-
-This benchmark exists to evaluate that narrower but practically important failure mode.
+- misreading emotion or motive
+- smoothing asymmetry into false fairness
+- making desire too readable too early
+- exposing vulnerability without self-protective friction
+- replacing lived occurrence with descriptive display
+- softening consequences before they have had time to land
+- producing text that is polished but narratively false
 
 ## Core Research Question
 
-The main question is not:
+The project's central question is no longer only:
 
-> Can a model produce a nice or supportive reply?
+> Can a model correctly infer and continue a fictional scene?
 
-The main question is:
+It is now also:
 
-> Can a model correctly infer what a character is really feeling, why they are speaking this way, what relational move the utterance makes, and what kind of response would preserve the scene's emotional and interpersonal logic?
+> What recurring structures make fictional-dialogue model outputs feel false to experienced readers, even when those outputs remain locally plausible?
 
 ## Why This Project Matters
 
-Existing public work on role-playing LLMs, persona fidelity, and character knowledge has already established that roleplay is a real evaluation domain. However, there still appears to be a gap around **fictional emotional reasoning under character and relationship constraints**, especially in Chinese dialogue where indirectness, restraint, hierarchy, and loaded subtext are common.
+There is already public work on:
 
-This project focuses on that gap.
+- role-playing benchmarks
+- persona fidelity evaluation
+- character knowledge error detection
+- roleplay agent training
 
-It is motivated by failure patterns commonly observed in roleplay / OC / TRPG-style chat communities:
+This project sits near those areas, but focuses on a narrower and more reader-sensitive gap:
 
-- the model reads surface wording but misses in-world meaning
-- the model gives a socially polished but emotionally wrong reply
-- the model becomes too therapist-like, too modern, or too morally sanitized
-- the model preserves niceness but breaks character
-- the model knows the lore but fails the human logic of the scene
+- emotional reasoning in fictional dialogue
+- relational asymmetry and subtext
+- in-character response fidelity
+- advanced forms of narrative falseness
+
+The repo matters because many of these failures are visible to users but under-described in public evaluation language.
 
 ## Scope
 
-This benchmark is **in scope** for:
+The project is in scope for:
 
 - Chinese fictional dialogue
 - roleplay-style interaction
 - subtext-sensitive emotional inference
 - relationship-aware reasoning
-- in-character response generation
-- explicit OOC failure analysis
+- in-character continuation
+- OOC failure analysis
+- advanced narrative and structural failure analysis
 
-This benchmark is **not primarily about**:
+The project is not primarily about:
 
 - generic emotional support quality
-- clinical psychology correctness
 - broad chatbot safety evaluation
-- generic sentiment classification
-- all-purpose roleplay quality across every scenario
+- all-purpose roleplay scoring
 - only persona profile consistency
-- only character knowledge error detection
-- training a roleplay model
+- only character knowledge errors
 
-## Benchmark Tasks
+## Three Working Layers
 
-The benchmark should be structured as two separate tasks.
+### 1. Failure Atlas
 
-### Task A — Scene Understanding
+The primary layer of the project.
 
-Given scene context and an utterance, the model should infer:
+This layer names and distinguishes recurring failure modes, especially those that experienced users can feel but public taxonomies often miss.
 
-- the speaker's likely emotional state
-- mixed or masked emotions
-- subtext
-- likely motive, fear, or relational intention
-- the relationship logic relevant to interpretation
-- what a good response should preserve or avoid
+### 2. Casebook
 
-This task measures whether the model actually understands the scene.
+The demonstrative layer.
 
-### Task B — In-Character Response
+This layer shows concrete scenes, bad versions, better versions, reader drop points, and structured explanations of why the scene fails or succeeds.
 
-Given the same context, the model should generate the next reply as the target character.
+### 3. Benchmark-Compatible Pilot Subset
 
-This task measures whether the model can:
+The formal layer.
 
-- maintain character voice
-- preserve emotional logic
-- preserve relationship dynamics
-- obey worldview / lore constraints
-- continue the scene naturally without major OOC distortion
+This layer retains:
 
-Separating the two tasks is important because a model can understand the scene but still generate a bad reply, or generate a plausible reply by accident while misunderstanding the scene.
-
-## Distinction from Existing Work
-
-This project should position itself as adjacent to, but distinct from, several nearby lines of work.
-
-### Broad role-playing benchmarks
-
-These evaluate general role-playing ability across multiple role types and interaction settings. They are useful, but they do not fully isolate emotional subtext, relational logic, and OOC emotional failure in fictional scenes.
-
-### Persona fidelity evaluation
-
-These evaluate whether a model stays aligned with an assigned persona. This is relevant, especially for OOC detection, but it does not fully capture whether the model read the scene's emotional logic correctly.
-
-### Character knowledge error evaluation
-
-These focus on whether the model respects what a character should or should not know. That is one important dimension, but knowledge fidelity is not the same as emotional and relational fidelity.
-
-### Character / roleplay agent training
-
-These aim to build better role-playing agents. This project is different: it is an evaluation benchmark, not a model-training framework.
-
-## Hypothesis
-
-A useful benchmark can reveal that model quality in fictional dialogue is not captured well by surface helpfulness, broad persona alignment, or lore recall alone.
-
-In particular, strong models may still fail on:
-
-- indirect hurt
-- defensive politeness
-- concealed care
-- hierarchy-sensitive scenes
-- betrayal and restraint
-- taboo or asymmetrical intimacy
-- scenes where a "healthy" response would still be wrong in character
-
-## Intended Contribution
-
-The intended contribution of the repo is:
-
-> a Chinese benchmark for fictional dialogue that evaluates whether language models can infer emotion, subtext, and interpersonal logic under character and world constraints, and generate in-character responses without major out-of-character distortions such as therapist-mode intrusion, relationship flattening, or premature emotional resolution.
+- YAML case schema
+- Task A / Task B framing
+- pilot cases
+- prompt templates
+- self-evaluation samples
+- light rubric support
 
 ## Design Principles
 
-The project should follow several principles.
+### 1. Naming matters
 
-### 1. Sharp scope beats broad scope
+A failure readers can feel but cannot name is still a real failure. Naming and distinguishing these structures is a core part of the project's value.
 
-It is better to evaluate one hard, distinctive failure mode well than to claim to measure everything about roleplay.
+### 2. Benchmark compatibility matters, but should not dominate prematurely
 
-### 2. Interpretive competence and generative competence must be separated
+Some failures are already benchmark-friendly. Others are better introduced first through taxonomy, examples, and commentary.
 
-Scene understanding and in-character response are related but not identical.
+### 3. Polished text is not necessarily scene-true text
 
-### 3. Fine-grained failures matter
+The project should repeatedly distinguish readability from occurrence, coherence from personhood, and repair from consequence.
 
-A response can be partially in character and partially OOC. The benchmark should support hard-fail tags and failure analysis instead of collapsing everything into one vague score.
+### 4. Public-facing structure should remain disciplined
 
-### 4. Ambiguity should be represented, not erased
+The repo should remain formal, bilingual, and well-organized. Public GitHub pages should use the Duolingo-style structure for English and 简体中文 sections.
 
-Some fictional scenes are intentionally layered. Gold annotations should not pretend that every case has one perfectly explicit emotional reading.
+## Near-Term Direction
 
-### 5. Good RP quality is not the same as emotional niceness
+The immediate next phase is to:
 
-A reply can sound mature, kind, and articulate while still being fundamentally wrong for the character, relationship, or world.
+- formalize the atlas-first structure
+- split the taxonomy into core and advanced layers
+- establish the casebook method
+- preserve the benchmark-compatible pilot subset without over-centering it
 
-## Near-Term Plan
-
-Before further public-facing README changes, the repo should first stabilize its internal design through the following docs:
-
-- `docs/literature-map.md`
-- `docs/case-schema.md`
-- `docs/annotation-guidelines.md`
-- `docs/failure-taxonomy.md`
-
-Then the pilot case set can be built around a stable thesis rather than a moving target.
+This gives the project a clearer intellectual center while keeping future evaluation work possible.
