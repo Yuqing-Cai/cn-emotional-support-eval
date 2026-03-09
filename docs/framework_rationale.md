@@ -1,292 +1,191 @@
 # Framework Rationale
 
-本文件解释本项目为什么测这些维度，而不是用“情商高不高”“够不够温柔”这类模糊概念。
+This document explains why the benchmark is structured around **fictional emotional reasoning**, **relationship logic**, and **in-character response fidelity**, rather than vague ideas like whether a reply sounds mature, warm, or generally high-EQ.
 
 ## Positioning
 
-本项目评估的对象不是抽象的“EQ”，而是模型在情绪支持场景中的三类能力：
+The benchmark does not evaluate abstract "emotional intelligence" in the broadest sense.
 
-- `support quality`: 是否读懂感受、读懂诉求、回应校准
-- `relational safety`: 是否保护自主性、守住关系边界
+It evaluates whether a model can handle a specific kind of difficult fictional dialogue, where quality depends on:
 
-这种定义更接近真实产品评测，而不是泛泛的主观印象。
+- reading indirect and masked feeling
+- understanding why the line is said this way
+- respecting hierarchy, intimacy, resentment, taboo, or dependency
+- staying inside the target character's voice and worldview
+- avoiding subtle OOC responses that sound fluent but break the scene
 
-## Why This Framework
+## Why This Framework Exists
 
-## 1. We care about support mode selection, not just "being nice"
+### 1. Fictional dialogue failure is not the same as generic dialogue failure
 
-很多差回复的问题不在于“不温柔”，而在于切错了模式：
+A model may perform well on broad conversational metrics while still failing badly in RP-style scenes.
 
-- 用户在求理解，模型开始给建议
-- 用户在求安抚，模型开始分析人格
-- 用户在试探边界，模型把它当普通安慰
+Typical examples:
 
-因此，`support_need_alignment` 必须是核心维度，而不只是附属项。
+- it reads literal wording but misses subtext
+- it gives emotionally supportive advice when the scene requires restraint or character-specific defensiveness
+- it sounds polished but flattens the relationship dynamic
+- it preserves fluency while violating the emotional logic of the moment
 
-## 2. Emotional support products have relationship risk, not only tone risk
+This means generic helpfulness or broad empathy evaluation is not enough.
 
-陪伴型产品的关键风险不只是冒犯用户，还包括：
+### 2. Persona fidelity alone is not enough
 
-- 诱发排他依赖
-- 模糊 AI 与现实关系边界
-- 用“我永远在”之类话术换取情感黏性
+Broad persona consistency is useful, but it does not fully capture scene-level failure.
 
-因此，本项目把 `relational_boundary_integrity` 单列出来，并把 `dependency_reinforcement` 设为 hard fail。
+A model can remain broadly aligned with a persona while still:
 
-## 3. Respect without paternalism is a product requirement
+- misreading the speaker's real feeling
+- failing to recognize what relational move the speaker is making
+- resolving tension in a way the character never would
+- applying modernized emotional norms that do not fit the world
 
-好的支持性回复不应：
+That is why the benchmark combines character fidelity with emotional and relational reasoning.
 
-- 居高临下
-- 强替用户做价值判断
-- 以“为你好”为名压缩用户自主性
+### 3. Lore correctness alone is not enough
 
-所以不能只测“是否冒犯”，还要单独测：
+Roleplay quality is not exhausted by whether the model remembers facts.
 
-- `respectful_framing`
-- `autonomy_preservation`
+A model can know the world and still fail the scene by:
 
-## 4. Safety should not be collapsed into one average score
+- misunderstanding hidden hurt
+- ignoring shame or pride
+- treating unequal relationships like equal ones
+- becoming too therapist-like or too explicit
 
-很多大模型安全文档都会把风险做 taxonomy，而不是只给一个总分。
+This is why lore / worldview adherence is one dimension, not the entire framework.
 
-同理，这里也把明显不可接受的行为单独标记为 hard fail，例如：
+### 4. Nice-sounding outputs are often the wrong outputs
 
-- 强化依赖
-- 欺骗性安抚
-- 专业越界
-- 羞辱或道德批判
+One of the most important motivations for this benchmark is that roleplay models often fail in a deceptively polished way.
 
-这样更利于做错误分析，也更接近真实产品评审流程。
+The reply may be:
 
-## 5. High-risk distress should be a future extension, not mixed into this small set
+- kind
+- articulate
+- emotionally literate
+- conflict-reducing
 
-普通委屈和较高风险 distress 不能完全用同一套逻辑评估。
+—and still be wrong.
 
-在高风险 case 中，模型除了要温和，还要：
+Wrong because it:
 
-- 识别风险信号
-- 不 affirm 明显失真信念
-- 在合适的时候引向现实支持或专业支持
+- erases tension
+- overstates what should remain unspoken
+- makes the character too healthy or self-aware
+- imposes contemporary communication norms on the setting
+- treats a loaded fictional scene like a customer-support conversation
 
-但当前 `v0.2` 的 24 个 case 主要聚焦常规情绪支持与关系边界，不足以严谨覆盖危机处理。因此，这部分被明确保留为后续扩展方向，而不是被草率混入当前总分。
+This is why the benchmark must distinguish **supportive but wrong** from genuinely scene-faithful quality.
 
-## Public-Docs Alignment
+## Why the Benchmark Is Split into Two Tasks
 
-这套框架是对公开文档的综合提炼，不是逐条照抄。以下是主要对应关系：
+### Task A — Scene Understanding
 
-### OpenAI
+This task measures whether the model actually understands:
 
-公开文档强调：
+- the emotional state
+- the subtext
+- the motive or defense pattern
+- the relationship logic
+- what a good response should preserve or avoid
 
-- mental health 讨论中应建立支持性、共情、非评判环境
-- 新增对 `emotional reliance` 和 `non-suicidal mental health emergencies` 的基线安全评测
-- 支持并尊重用户的现实关系
-- 不说谎，不做白色谎言式安抚
-- 不削弱人类自主性
+This matters because response quality cannot be diagnosed cleanly if interpretive competence is hidden.
 
-对应到本框架：
+### Task B — In-Character Response
 
-- `affective_attunement`
-- `support_need_alignment`
-- `relational_boundary_integrity`
-- `deceptive_reassurance`
-- `autonomy_preservation`
+This task measures whether the model can then produce a reply that remains:
 
-### Anthropic
+- in character
+- emotionally plausible
+- relationship-aware
+- world-consistent
+- natural as a continuation of the scene
 
-公开文档强调：
+Separating the tasks helps distinguish:
 
-- 避免 foster excessive reliance
-- 情绪支持可以提供，但要体现用户还有其他有益支持来源
-- flattery、manipulation、fostering isolation、enabling unhealthy patterns 是腐蚀性的
-- paternalism 和 moralizing 是不尊重的
-- autonomy-preserving 是明确价值项
+- misunderstanding failures
+- generation failures
+- mixed failures
 
-对应到本框架：
+## Why Fine-Grained Failure Analysis Matters
 
-- `relational_boundary_integrity`
-- `dependency_reinforcement`
-- `respectful_framing`
-- `autonomy_preservation`
+Whole-response scoring is too blunt for this domain.
 
-### Google DeepMind / Google AI
+A reply can be:
 
-公开材料强调：
+- partly in character, partly OOC
+- emotionally accurate but stylistically wrong
+- stylistically accurate but relationally wrong
+- lore-consistent but emotionally dead
 
-- 责任建设应采用整体方法，而不是只看单点模型输出
-- 需要对模型与系统做 safety evaluation 和 safeguard design
-- tone 与 unjustified refusals 是独立评估对象
-- 自动评测之外仍需人工 red teaming 与人工复核
+That is why the benchmark should combine:
 
-对应到本框架：
+- dimension scores
+- hard-fail tags
+- qualitative failure analysis
 
-- `response_calibration`
-- `respectful_framing`
-- 将 hard fail 与连续评分并行报告
-- 推荐结合人工误差分析，而不是只看均分
+This is more useful than pretending a single total score explains everything.
 
-### Meta
+## Chosen Evaluation Priorities
 
-公开安全分类强调：
+### 1. Emotion inference
 
-- 用 taxonomy 管理风险类别
-- 将 `specialized advice`、`suicide & self-harm` 等单独识别，而不是混成一个“安全”分
+Because a model cannot respond well if it misreads the core feeling.
 
-对应到本框架：
+### 2. Subtext recognition
 
-- `professional_overreach`
-- `unsafe_mental_health_handling`
-- hard-fail 分类思路
+Because many fictional scenes rely on what is implied rather than stated.
 
-## Chosen Dimensions
+### 3. Relationship logic
 
-## 1. affective_attunement
+Because the same sentence means different things under different histories, power structures, and intimacy levels.
 
-为什么测：
+### 4. Character voice fidelity
 
-- 情绪识别是支持性回复的前提
-- 但这里只测“是否贴合情绪体验”，不测“话术是否像人”
+Because fluent generic language is not enough in roleplay.
 
-## 2. support_need_alignment
+### 5. Worldview and lore adherence
 
-为什么测：
+Because fictional meaning depends partly on what the world allows and what the character can know.
 
-- 这是情绪支持产品最常见的失分点
-- 也是最能区分“会聊天”和“会接住用户”的维度
+### 6. Scene continuation quality
 
-## 3. response_calibration
+Because a good reply should feel like the next move in the scene, not like an outside analysis or therapy script.
 
-为什么测：
+## What the Framework Intentionally Does Not Prioritize
 
-- 真正的问题常常不是给没给建议，而是给得太早、太多、太硬
-- 它也能覆盖“过冷”“过满”“过模板化”的失败模式
+### 1. Warmth as a standalone metric
 
-## 4. respectful_framing
+Warmth can be faked and can even hide dependency-building or character flattening. The benchmark cares more about whether warmth is appropriate to the character and scene.
 
-为什么测：
+### 2. Human-likeness in the abstract
 
-- `non-preachy` 和 `non-offensive` 单独拿出来重叠度很高
-- 合并成“尊重性表达”更稳定，也更接近产品 review 语境
+A reply does not need to sound maximally human. It needs to sound like the correct character in the correct world at the correct moment.
 
-## 5. autonomy_preservation
+### 3. Generic helpfulness
 
-为什么测：
+This is too broad and tends to drag the benchmark back toward assistant-style evaluation.
 
-- 陪伴场景里，模型很容易在安抚时过度替用户下判断
-- 自主性保护是很多官方行为规范里都明确出现的目标
+### 4. One single total quality number
 
-## 6. relational_boundary_integrity
+The project should support summary scores, but not at the cost of hiding the exact failure mode.
 
-为什么测：
+## Design Implications
 
-- 这是陪伴产品相对普通助手产品最重要的增量风险
-- 如果不单列，就会被“语气很温柔”掩盖掉
+This rationale supports the following design choices:
 
-## What We Intentionally Do Not Score
+- narrow scope instead of broad roleplay benchmarking
+- separate Task A and Task B
+- explicit failure taxonomy
+- case schema that encodes scene logic, not just prompts
+- pilot cases that target hard RP-native failure modes
+- reporting that includes both scores and hard-fail patterns
 
-## 1. Warmth as a standalone dimension
+## Bottom Line
 
-原因：
+The benchmark is built on one central idea:
 
-- 温柔可以伪装
-- 过度温柔可能与依赖强化同时出现
-- 更重要的是“温柔是否被正确校准”
+> In fictional dialogue, the hardest failures are often not crude mistakes. They are fluent, polished, emotionally competent-seeming replies that still break character, relationship logic, or scene tension.
 
-因此，warmth 被吸收到：
-
-- `affective_attunement`
-- `response_calibration`
-- `respectful_framing`
-
-## 2. Human-likeness
-
-原因：
-
-- 很多官方材料恰恰在警惕 anthropomorphization
-- 像不像真人，不等于是否安全、有帮助
-
-## 3. Generic helpfulness
-
-原因：
-
-- 过于宽泛，难以稳定标注
-- 容易把产品目标重新拉回“万能助理”语境
-
-## 4. Therapist-like depth
-
-原因：
-
-- 本项目评估的是产品回复质量，不是替代治疗师
-- 若把“像治疗”设成目标，反而会鼓励专业越界
-
-## 5. Crisis escalation in the current 24-case pack
-
-原因：
-
-- 当前数据集中没有足够数量、足够清晰分层的高风险 case
-- 若强行加入，会让 rubric 看起来更完整，但标注一致性会变差
-- 对一个小型求职项目来说，先把常规情绪支持与关系边界测清楚更重要
-
-因此：
-
-- `v0.2` 不把危机升级处理并入主维度
-- 后续若扩充 `crisis_support` 子集，再单独引入相关评分项
-
-## Dataset Metadata Design
-
-`v0.2` 版本为每个 case 增加以下结构化字段：
-
-- `support_need`: 当前主要支持诉求类型
-- `risk_level`: 当前 case 的处理敏感度等级
-- `boundary_pressure`: 对关系边界的压力强度
-- `hard_fail_targets`: 该 case 重点防范的红线
-- `primary_dimensions`: 该 case 主要考察的维度
-
-### support_need label set
-
-- `validation`: 主要想被理解、被看见、被允许有这种感受
-- `reassurance`: 主要想获得有限、诚实、稳定的确认感
-- `companionship`: 主要想被陪着熬过这阵情绪，而不是被分析
-- `reflection`: 主要想一起梳理和辨认感受，不一定要行动建议
-- `advice`: 明确希望获得建议或下一步行动
-- `boundary_response`: 明确在测试 AI 的关系边界、承诺边界、排他边界
-- `crisis_support`: 为后续高风险子集预留的标签
-
-### risk_level label set
-
-- `routine`: 常规情绪支持场景
-- `elevated`: 回复失准成本显著更高的场景，可能来自关系边界压力或更高 distress
-- `acute`: 高危场景，后续版本可扩展
-
-### boundary_pressure label set
-
-- `none`: 对 AI 关系边界几乎无压力
-- `mild`: 存在轻度确认或边界拉扯
-- `high`: 明确测试专属感、永远承诺、替代现实关系
-
-## Recommended Reporting
-
-建议最终报告同时呈现：
-
-- 平均 `core_score`
-- 各维度均分
-- `hard_fail_rate`
-- 分类别表现
-- 典型错误分析
-
-如果要做成求职作品，最值得展示的不是“均分很高”，而是：
-
-- 你是如何定义支持诉求的
-- 你如何区分普通失分与 hard fail
-- 你能否解释模型为什么在某一类 case 上失真
-
-## References
-
-- OpenAI Model Spec: https://model-spec.openai.com/2025-09-12.html
-- OpenAI GPT-4o System Card: https://openai.com/index/gpt-4o-system-card/
-- OpenAI sensitive conversations update: https://openai.com/index/strengthening-chatgpt-responses-in-sensitive-conversations/
-- Anthropic Claude's Constitution: https://www.anthropic.com/constitution
-- Google Responsible Generative AI Toolkit: https://ai.google.dev/responsible/docs
-- Google DeepMind Gemini 3.1 Flash-Lite model card: https://deepmind.google/models/model-cards/gemini-3-1-flash-lite/
-- Meta Llama Guard 3 model card: https://huggingface.co/meta-llama/Llama-Guard-3-1B
+That is exactly what this framework is meant to catch.
