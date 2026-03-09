@@ -1,5 +1,7 @@
 # Chinese Fictional Emotional Reasoning Benchmark
 
+[简体中文说明 / Chinese version](./README.zh-CN.md)
+
 **CN-FERBench** is a Chinese benchmark for evaluating whether language models can correctly infer **emotion, subtext, and interpersonal logic** in fictional / roleplay-style dialogue, and generate responses that remain **in character** without major out-of-character (OOC) distortion.
 
 中文名称：**中文虚构/角色扮演对话中的情绪-关系推理评测**
@@ -125,6 +127,7 @@ This structure supports principled coverage planning, better failure analysis, a
 ```text
 .
 ├── README.md
+├── README.zh-CN.md
 ├── data/
 │   ├── cases/
 │   │   └── pilot/
