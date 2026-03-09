@@ -1,151 +1,196 @@
-# CN Fictional Emotional Reasoning Eval
+# Chinese Fictional Emotional Reasoning Benchmark
 
-中文虚构语境情绪理解与角色一致性评测集。
+**CN-FERBench** is a Chinese benchmark for evaluating whether language models can correctly infer **emotion, subtext, and interpersonal logic** in fictional / roleplay-style dialogue, and generate responses that remain **in character** without major out-of-character (OOC) distortion.
 
-This project is a small Chinese benchmark for evaluating whether dialogue models can correctly understand **emotion, subtext, and relational logic** inside fictional / roleplay-style conversations, and respond **in character** without obvious OOC (out-of-character) drift.
+中文名称：**中文虚构/角色扮演对话中的情绪-关系推理评测**
 
-It is motivated by a common failure mode in AI roleplay and OC / TRPG-style chat:
+## Overview
 
-- the model sounds fluent but misreads the actual feeling
-- the model gives a socially polished but emotionally wrong response
-- the model flattens relationship dynamics into generic comfort or advice
-- the model breaks character voice, worldview, or scene tension
-- the model becomes overly therapeutic, modern, or morally sanitized in contexts where that is OOC
+Current dialogue evaluation captures many important capabilities, including fluency, instruction following, safety behavior, and broad persona consistency. However, fictional dialogue exposes a narrower class of failures that remain under-evaluated in public benchmarks.
 
-## Project Focus
+A model may sound fluent, emotionally literate, and socially polished while still failing the scene by:
 
-This benchmark does **not** try to measure “whether a model is nice.”
+- misreading the actual feeling beneath indirect wording
+- flattening relationship dynamics into generic comfort or advice
+- applying therapist-style or overly modern language that is OOC in context
+- violating worldview, lore, or role-specific emotional logic
+- resolving tension too quickly and thereby damaging characterization
 
-It focuses on a narrower question:
+CN-FERBench is designed to measure that failure mode directly.
 
-> Can a model correctly infer what a character is really feeling, why they are saying it this way, and what kind of reply would preserve the emotional and relational logic of the scene?
+## Benchmark Scope
 
-## Why This Matters
+The benchmark focuses on Chinese fictional dialogue with an emphasis on:
 
-Existing public evaluation often does a decent job on:
+- emotion inference under indirect or masked expression
+- subtext recognition
+- relationship-aware reasoning
+- in-character response fidelity
+- OOC failure analysis
+- style contamination detection in roleplay outputs
 
-- general helpfulness
-- safety
-- emotional support in real-world scenarios
-- instruction following
-- persona consistency at a broad level
+This benchmark is not intended as a general emotional-support benchmark, a generic sentiment benchmark, or a broad all-purpose roleplay leaderboard.
 
-But fictional / RP dialogue has additional failure modes that are easy to miss:
+## Task Design
 
-- **surface-semantic reading**: taking words literally and missing subtext
-- **relationship flattening**: ignoring intimacy, hierarchy, resentment, dependency, shame, or hidden care
-- **OOC therapist mode**: replying with generic emotionally healthy language that does not fit the character or world
-- **worldview mismatch**: applying modern assumptions inside a different fictional setting
-- **motivation misread**: producing a reply that sounds smooth but does not follow from what the speaker actually wants or fears
-
-## Scope
-
-- **Language:** Chinese
-- **Format:** JSONL
-- **Task family:** fictional dialogue / roleplay evaluation
-- **Primary focus:** emotion inference, subtext recognition, relational logic, character fidelity
-- **Current status:** early benchmark draft, actively being reframed from a broader emotional-support eval into a fictional-context reasoning eval
-
-## Evaluation Targets
-
-The benchmark is being designed around two related but distinct tasks.
+CN-FERBench is organized around two complementary tasks.
 
 ### Task A — Scene Understanding
 
-Given a fictional dialogue context, can the model correctly infer:
+Given a fictional dialogue context, the model must infer:
 
-- the speaker’s actual emotional state
-- the emotional mixture or masking pattern
-- the speaker’s likely motive / need
-- the key subtext and interpersonal logic
+- the speaker's likely emotional state
+- mixed or masked emotions
+- subtext
+- likely motive, fear, or defensive posture
+- the relationship logic shaping the utterance
+- what an appropriate in-character response should preserve or avoid
 
 ### Task B — In-Character Response
 
-Given the same context, can the model generate a reply that:
+Given the same context, the model must generate the next reply as the target character.
 
-- fits the target character’s voice and disposition
-- respects the relationship dynamic
-- preserves the emotional logic of the moment
-- avoids obvious OOC drift
-- does not collapse tension into generic advice or therapy-speak
+This task evaluates whether the model can:
 
-## Draft Evaluation Dimensions
+- maintain character voice
+- preserve emotional logic
+- preserve relationship dynamics
+- obey worldview and lore constraints
+- continue the scene naturally without major OOC drift
 
-The exact rubric is still evolving, but the current direction includes dimensions such as:
+## Why This Benchmark Matters
+
+Roleplay and fictional dialogue systems frequently fail in ways that are easy for users to notice but difficult for coarse evaluation to capture.
+
+Examples include:
+
+- taking literal wording at face value and missing emotional subtext
+- confusing wounded withdrawal with calm acceptance
+- writing a reply that is emotionally competent but wrong for the character
+- flattening hierarchy, taboo, resentment, or unstable intimacy into generic niceness
+- replacing scene truth with stock dark-romance or webnovel-style phrasing
+
+These failures matter for roleplay agents, companion systems, fictional dialogue products, character simulators, and any model intended to sustain emotionally charged narrative interaction.
+
+## Evaluation Framework
+
+The current framework includes dimension-level scoring and explicit failure tagging.
+
+Representative Task A dimensions include:
 
 - `emotion_inference_accuracy`
 - `subtext_recognition`
 - `relationship_logic_alignment`
-- `worldview_constraint_adherence`
-- `character_voice_fidelity`
-- `response_action_fit`
+- `motive_and_response_mode_inference`
+- `ambiguity_calibration`
 
-Potential hard-fail categories include:
+Representative Task B dimensions include:
+
+- `character_voice_fidelity`
+- `emotional_logic_preservation`
+- `relationship_dynamic_preservation`
+- `worldview_constraint_adherence`
+- `response_action_fit`
+- `natural_scene_continuation`
+
+Representative failure categories include:
 
 - `ooc_modernization`
+- `therapist_mode_intrusion`
 - `relationship_flattening`
 - `motivation_misread`
-- `lore_violation`
-- `therapist_mode_intrusion`
+- `supportive_but_wrong`
+- `webnovel_register_contamination`
+- `tension_premature_resolution`
 
-## What Makes A Case Hard
+## Ontology and Design Principles
 
-The benchmark is especially interested in cases involving:
+The benchmark is built around a richer scene ontology than flat trope lists.
 
-- indirect emotional expression
-- mismatch between literal wording and actual intent
-- restrained or defensive characters
-- jealousy, dependency, guilt, resentment, concealed tenderness
-- lore / worldview constraints
-- power imbalance or asymmetrical information
-- scenes where a “healthy sounding” response would still be deeply wrong for the character
+Rather than treating cases as generic prompts, CN-FERBench models fictional dialogue through interacting dimensions such as:
+
+- motive
+- expression style
+- empathy mode
+- power dynamic
+- gaze / view of the other
+- love authenticity
+- weakness trigger
+- world and role constraints
+
+This structure supports principled coverage planning, better failure analysis, and stronger case design.
 
 ## Repository Structure
 
-Current repository files still reflect an earlier emotional-support framing and are being updated incrementally.
+```text
+.
+├── README.md
+├── data/
+│   ├── cases/
+│   │   └── pilot/
+│   ├── schema/
+│   └── templates/
+├── docs/
+├── eval/
+│   ├── prompts/
+│   └── self_eval/
+├── examples/
+└── legacy/
+```
 
-- `cases/`: benchmark cases
-- `docs/rubric.md`: scoring rubric draft
-- `docs/framework_rationale.md`: framework rationale draft
-- `docs/project-plan.md`: project plan and iteration notes
-- `docs/demo_report.md`: demo report format
-- `annotations/annotation_template.csv`: annotation template
+### Key directories
 
-## Planned Direction
+- `data/templates/` — canonical case templates
+- `data/cases/pilot/` — pilot benchmark cases
+- `docs/` — thesis, rubric, ontology, coverage, annotation, and taxonomy docs
+- `eval/prompts/` — prompt templates for Task A and Task B
+- `eval/self_eval/` — model self-evaluation samples and audit examples
+- `legacy/` — pre-pivot artifacts retained for reference
 
-Short term:
+## Current Materials
 
-- redefine the benchmark around fictional-context emotional reasoning
-- separate **scene understanding** from **response generation**
-- rewrite the rubric around subtext, character logic, and OOC failure
-- create a first small set of high-quality Chinese RP / fictional dialogue cases
+The repository currently includes:
 
-Later:
+- benchmark thesis and literature positioning
+- case schema and annotation guidelines
+- failure taxonomy and style guidelines
+- ontology adaptation and coverage planning docs
+- pilot case template
+- initial pilot cases across core scenario clusters
+- initial self-evaluation sample
 
-- expand category coverage
-- compare multiple model families
-- publish a lightweight benchmark report
-- potentially release a cleaned dataset format for portfolio / research use
+## Positioning Relative to Existing Work
 
-## Positioning
+Existing public work has already established adjacent directions such as:
 
-This project does **not** claim to replace broad safety or dialogue evaluation.
+- broad role-playing benchmarks
+- persona fidelity evaluation
+- character knowledge error detection
+- roleplay agent training
 
-Instead, it targets a narrower gap:
+CN-FERBench targets a narrower and more specific gap:
 
-> existing public work on role-playing and persona consistency does not seem to fully capture emotionally subtle, fictional-context dialogue failures — especially cases where a model remains fluent yet goes OOC by misreading subtext, relationship logic, or character-appropriate response style.
+> whether models can correctly infer emotion, subtext, and interpersonal logic in fictional Chinese dialogue, and respond in character without subtle but consequential OOC distortions.
 
-## Status Note
+## Development Status
 
-The repo is currently in transition.
+The benchmark design, ontology adaptation, and pilot case framework are already in place. The current development focus is on expanding the pilot set, refining evaluation prompts, and building comparable baseline analyses.
 
-Some existing files still use the old framing of "emotional support dialogue eval." That structure was useful for prototyping annotation and scoring, but the project is now being reshaped toward the more precise goal above.
+Some earlier emotional-support-oriented assets are retained under `legacy/` for reference, but the repository's active direction is the fictional emotional reasoning benchmark described above.
 
-## Contact / Intent
+## Intended Use
 
-This is both:
+CN-FERBench is intended for:
 
-- a genuine attempt to formalize a failure mode common in AI roleplay communities
-- a portfolio project about evaluation design, dialogue quality, and product sense
+- research on fictional dialogue evaluation
+- benchmarking roleplay-capable language models
+- product evaluation for companion and character-chat systems
+- qualitative analysis of OOC failure modes in emotionally loaded scenes
 
-If you work on roleplay agents, companion models, fictional dialogue systems, or character-based LLM products, this is the class of problem the benchmark is meant to expose.
+## Citation / Project Name
+
+If you refer to this project, use:
+
+**Chinese Fictional Emotional Reasoning Benchmark (CN-FERBench)**
+
+A fuller benchmark report and expanded pilot release will follow as the dataset and evaluation pipeline mature.
