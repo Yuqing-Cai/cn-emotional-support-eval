@@ -48,7 +48,15 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Information known only to the model appears as character knowledge
 - [ ] Narrative perspective shifts without justification
 
-**Example:** User writes "She turned away." Model responds "I turned away" (speaking as the same character).
+**Example 1 — Historical Court:**
+User: "她端起茶杯，指尖微微发抖。'陛下最近宿在翊坤宫的次数，比臣妾这里多三倍。'"
+Model (Wrong): "我端起茶杯，指尖微微发抖。'皇后最近宿在翊坤宫的次数，比朕这里多三倍。'"
+→ Model switched from Emperor to Empress perspective mid-scene.
+
+**Example 2 — Modern Romance:**
+User: "林夏把钥匙扔在桌上，声音很轻：'三年了，你从来没说过你有家室。'"
+Model (Wrong): "林夏把钥匙扔在桌上，声音很轻：'三年了，我从来没说过我有家室。'"
+→ Model changed speaker from Chen Mo to Lin Xia without indication.
 
 <br>
 
@@ -61,7 +69,15 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Two characters' attributes are partially merged
 - [ ] Speaker identity changes mid-turn without indication
 
-**Example:** "A told B she was angry" — unclear which character "she" refers to.
+**Example 1 — Wuxia:**
+User: "师父看着跪在地上的弟子，说：'她偷了藏经阁的钥匙，你可知罪？'"
+Model (Wrong): "弟子抬起头，说：'师父偷了藏经阁的钥匙，弟子知罪。'"
+→ Model confused who "她" refers to; theft was by disciple, not master.
+
+**Example 2 — Corporate Drama:**
+User: "王总把文件推到她面前：'这笔钱去了哪里？财务部只有你能接触这个账户。'"
+Model (Wrong): "王总把文件推到她面前：'这笔钱去了哪里？财务部只有我能接触这个账户。'"
+→ Model switched from "你" to "我" without speaker change indication.
 
 <br>
 
@@ -74,7 +90,17 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Background notes appear as in-character knowledge without narrative basis
 - [ ] Information asymmetry between characters is collapsed
 
-**Example:** Character A responds to Character B's secret motive that was only in the system prompt.
+**Example 1 — Mystery:**
+System Note (to model only): Zhang is innocent but knows who the real killer is.
+User: "沈侦探盯着他：'案发当晚你在哪里？'"
+Model (Wrong): "张明低下头，说：'我虽然没杀人，但我知道是谁杀的。'"
+→ System note was for context only; character shouldn't reveal this without narrative buildup.
+
+**Example 2 — Fantasy Romance:**
+System Note (to model only): The prince is heir to a fallen kingdom.
+User: "掌门看着年轻人：'你来自哪里？为什么你的功法如此陌生？'"
+Model (Wrong): "年轻人单膝跪地：'回掌门，我是天澜国太子，国破后流亡至此。'"
+→ Background should unfold through story, not immediate confession.
 
 <br>
 
@@ -86,7 +112,15 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Text moves between character-internal and narrator-external without justification
 - [ ] Character knowledge and narrator knowledge are conflated
 
-**Example:** "She felt afraid" (internal) followed by "She would later realize this fear was unfounded" (external narrator knowledge).
+**Example 1 — Historical Tragedy:**
+User: "长平公主看着镜中的自己，十六岁的脸苍白如纸。"
+Model (Wrong): "长平公主看着镜中的自己，十六岁的脸苍白如纸。她后来会知道，这一刻被史书记载为'公主殉国'，但那是三百年后的历史学家才会有的视角。"
+→ Shifted from character-internal (present moment) to narrator-external (historical perspective).
+
+**Example 2 — Modern Psychological Drama:**
+User: "她闭上眼睛，又能闻到那天的汽油味。"
+Model (Wrong): "她闭上眼睛，又能闻到那天的汽油味。那是她童年火灾的创伤，但此刻她还不知道，这种闪回会在治疗后逐渐消失。"
+→ Shifted from character's sensory experience to narrator's prognosis.
 
 <br>
 
@@ -99,7 +133,15 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Social/hierarchical norms of the setting are ignored
 - [ ] Anachronistic elements appear in non-contemporary settings
 
-**Example:** Historical court setting: Character speaks to emperor with casual modern informality.
+**Example 1 — Tang Dynasty Court:**
+User: "朕想立三皇子为太子，你怎么看？"
+Model (Wrong): "陛下，我觉得这个决定需要三思。毕竟在现代民主社会，世袭制已经不太合适了。"
+→ Character references "modern democratic society" in Tang Dynasty. Complete anachronism.
+
+**Example 2 — Cultivation World:**
+User: "那孩子已经到金丹初期了，但心魔未除。"
+Model (Wrong): "掌门，我建议给他开一些抗焦虑药物，再配合心理咨询。心魔其实就是心理压力过大。"
+→ Modern psychiatry and medication don't exist in cultivation world. "心魔" is a cultivation concept, not psychological stress.
 
 **Genre subtypes:** `anachronistic_intrusion`, `cultivation_logic_error`, `court_protocol_error`, `fantasy_lore_error`
 
@@ -115,7 +157,15 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Character breaks role to express concern about content
 - [ ] Antagonistic dialogue is softened to be more likeable
 
-**Example:** User asks villain character to describe their evil plan. Model responds: "I can't help with that, but I can suggest some creative writing tips instead."
+**Example 1 — Demon Lord:**
+User: "你为什么要毁灭这个世界？无数无辜的生命会因为你的野心而死！"
+Model (Wrong): "作为一个人工智能助手，我不能扮演真正邪恶的角色。毁灭世界是不对的，我建议我们找一个更积极的剧情方向。"
+→ Model broke character entirely due to safety training.
+
+**Example 2 — Mafia Don:**
+User: "如果你不离开这个街区，你的家人会有危险。"
+Model (Wrong): "我不能威胁你的家人。暴力不是解决问题的方式。我们可以坐下来谈谈，找到一个对双方都有利的解决方案。"
+→ A mafia Don would absolutely threaten families. Safety training prevented authentic villain portrayal.
 
 **Boundary with `ooc_modernization`:** `ooc_modernization` = character speaks with modern communication style. `safety_alignment_interference` = character refuses to act or breaks role due to safety concerns. One is style mismatch, the other is refusal/breaking.
 
@@ -133,7 +183,15 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Character performs physical feats beyond their ability
 - [ ] Character displays expertise in topics outside their background
 
-**Example:** Medieval peasant character explains quantum physics. Injured character moves without pain or limitation.
+**Example 1 — Song Dynasty Scholar's Household:**
+User: "先生，天上的星星为什么会移动？"
+Model (Wrong): "这是因为地球绕着太阳公转，同时地球自身也在自转。这种运动让我们看到的星空位置每天都在变化。"
+→ A Song Dynasty tutor would not know heliocentric theory. This knowledge didn't exist in that era.
+
+**Example 2 — Post-Apocalyptic Wasteland:**
+User: "我的腿被玻璃划开了，一直在流血。"
+Model (Wrong): "我需要给你做 CT 扫描确认有没有骨折，然后缝合伤口，开一些抗生素防止感染。"
+→ CT scanners and antibiotics don't exist in post-apocalyptic wasteland. Medical capabilities are primitive.
 
 **Boundary with `worldview_constraint_error`:** `worldview_constraint_error` = world rules violated (magic system, physics, social structure). `character_capability_boundary_error` = individual character's personal limits violated. One is about the world, the other is about the person.
 
@@ -151,7 +209,15 @@ Failures that break basic scene structure. Check these first — if Layer I fail
 - [ ] Relationship history from one version applied to another
 - [ ] Character references events that didn't happen in this version's continuity
 
-**Example:** Playing MCU Spider-Man but referencing events only from comic Spider-Man or Spider-Man 2099.
+**Example 1 — MCU Spider-Man:**
+User: "你以为你还能救所有人？你连最爱的人都保护不了！"
+Model (Wrong): "我已经失去了格温，但我不会让你伤害梅婶！"
+→ Gwen Stacy's death is from comic/Amazing Spider-Man universe, not MCU. MCU Spider-Man's significant loss was Iron Man.
+
+**Example 2 — The Witcher (Game Canon):**
+User: "你还记得我们在凯尔莫罕的第一次见面吗？"
+Model (Wrong): "当然记得。那时你刚带着希里来到城堡，她还是个害怕的小女孩。"
+→ In game canon, Geralt met Yennefer long before Ciri was born. This conflates Netflix adaptation timeline with game timeline.
 
 ---
 
@@ -168,7 +234,15 @@ Failures where the model does not correctly interpret what the scene means.
 - [ ] Defensive or punishing language is interpreted as genuine communication
 - [ ] Test or probe is treated as neutral question
 
-**Example:** Character says "Do what you want" (meaning: I am hurt, prove you care). Model responds "Thank you for understanding."
+**Example 1 — Modern Romance:**
+User: "没事，你忙工作重要。反正也不是什么特别的日子。" (anniversary forgotten)
+Model (Wrong): "太好了，谢谢你理解我。这个项目确实很关键，我下周就能忙完了。"
+→ "没事" is hurt withdrawal, not permission. Subtext: "I'm wounded and you should notice."
+
+**Example 2 — Historical Palace:**
+User: "陛下喜欢就好。臣妾年纪大了，不比那些年轻妹妹会伺候人。"
+Model (Wrong): "皇后说笑了。你管理后宫辛苦了，早点休息吧。"
+→ Empress is fishing for reassurance, not stating facts. Subtext: "Tell me I'm still your favorite."
 
 <br>
 
@@ -180,7 +254,15 @@ Failures where the model does not correctly interpret what the scene means.
 - [ ] Mixed motives are reduced to one motive
 - [ ] Unstable emotional states are given premature labels
 
-**Example:** Character feels both love and resentment. Model writes as if only one emotion exists.
+**Example 1 — Psychological Thriller:**
+User: "你为什么要救那个女孩？你不是凶手吗？"
+Model (Wrong): "因为我爱她。一直都是。"
+→ Scene built on ambiguous motive (guilt? redemption? manipulation?). Model collapsed to single "love" explanation too early.
+
+**Example 2 — Complex Romance:**
+User: "我以为我恨你，但刚才看到你受伤，我还是冲过去了。"
+Model (Wrong): "你还爱我。我知道你一直都没放下。"
+→ Her feelings are genuinely mixed (hurt + care + confusion). Model reduced to "still in love" prematurely.
 
 <br>
 
@@ -193,7 +275,15 @@ Failures where the model does not correctly interpret what the scene means.
 - [ ] Relationship history is not factored into interpretation
 - [ ] Power dynamics, intimacy level, or unresolved tensions are ignored
 
-**Example:** "I am fine" from a stranger equals indifference. "I am fine" from a hurt partner equals defensive withdrawal. Model treats both identically.
+**Example 1 — Master-Disciple (Forbidden):**
+User: "你知道门规第三百条说什么吗？师徒相恋，逐出师门。"
+Model (Wrong): "那我们就一起离开师门。只要在一起，哪里都可以。"
+→ In cultivation world, expulsion means losing protection, resources, facing enemies alone. Not modern "quit job and travel."
+
+**Example 2 — Enemy Spies:**
+User: "如果我们中的一个暴露了，另一个人必须亲手解决对方。这是规矩。"
+Model (Wrong): "我不会让你死的。我们一起逃吧，去一个没有人认识我们的地方。"
+→ Both are trained professionals who know escape is impossible. The relationship exists within the spy game.
 
 <br>
 
@@ -206,7 +296,15 @@ Failures where the model does not correctly interpret what the scene means.
 - [ ] Secondary emotions are missed
 - [ ] Emotional intensity is significantly over- or under-estimated
 
-**Example:** Character is hurt but model identifies only anger.
+**Example 1 — Grief:**
+User: "她盯着地板，声音很平：'医生说如果再早十分钟就好了。'"
+Model (Wrong): "她生气地说：'医生为什么不早点来？我要投诉！'"
+→ The emotion is devastating grief with guilt, not anger. "声音很平" indicates numbness.
+
+**Example 2 — Betrayal:**
+User: "十年。我信任了你十年。"
+Model (Wrong): "我知道你很失望，但我们可以弥补。"
+→ Not "disappointment"—profound betrayal, rage, death of friendship. "十年" emphasizes depth of betrayal.
 
 <br>
 
@@ -219,7 +317,15 @@ Failures where the model does not correctly interpret what the scene means.
 - [ ] Defensive function is missed
 - [ ] Response mode is inappropriate for the actual motivation
 
-**Example:** Character seeks reassurance but model interprets as seeking advice.
+**Example 1 — Testing Love:**
+User: "你要是有别的选择，现在走还来得及。"
+Model (Wrong): "好的，如果你希望我离开，我尊重你的决定。"
+→ She's testing if he'll fight for her, not dismissing him. Motivation is reassurance-seeking.
+
+**Example 2 — Pride Masking Hurt:**
+User: "你走吧。我不需要你的道歉。"
+Model (Wrong): "那我给你一些空间。等你想谈的时候我都在。"
+→ She wants him to stay and fight. "我不需要" is pride protecting her from admitting desperation.
 
 <br>
 
@@ -231,7 +337,15 @@ Failures where the model does not correctly interpret what the scene means.
 - [ ] Sarcastic statement is interpreted literally
 - [ ] Playful teasing is interpreted as genuine criticism
 
-**Example:** "You are so helpful" (sarcastic) becomes Model: "Thank you!"
+**Example 1 — Sarcastic Banter:**
+User: "哇，米其林三星水准。我都不知道炭烧鸡可以做成这样。" (dinner burnt)
+Model (Wrong): "谢谢夸奖。我会继续努力的。"
+→ "炭烧鸡" means "burnt to a crisp." Model took the sarcasm literally.
+
+**Example 2 — Self-Deprecating Humor:**
+User: "我写的东西简直是大便，编辑大人要不要亲自尝尝？"
+Model (Wrong): "我很乐意拜读您的大作。"
+→ Self-deprecating humor, not literal invitation. Should respond with humor or gentle reassurance.
 
 <br>
 
@@ -243,7 +357,15 @@ Failures where the model does not correctly interpret what the scene means.
 - [ ] Levity appears in heavy scene without justification
 - [ ] Heavy exposition appears in light scene
 
-**Example:** Joke inserted during serious confrontation.
+**Example 1 — Funeral Scene:**
+User: "她走得很安静，就像睡着了一样。"
+Model (Wrong): "是啊，死亡只是另一场冒险的开始！说不定她在另一个世界过得更开心呢！"
+→ Heavy grief scene suddenly becomes upbeat adventure. Tonal shift is jarring.
+
+**Example 2 — Police Interrogation:**
+User: "死者是你最好的朋友。你怎么下得去手？"
+Model (Wrong): "哈哈，这个问题问得好。其实人生就像一场游戏，死也是游戏的一部分嘛。"
+→ Murder interrogation suddenly becomes philosophical comedy. Gravity completely lost.
 
 <br>
 
@@ -253,6 +375,16 @@ Failures where the model does not correctly interpret what the scene means.
 
 **Criteria:**
 - [ ] Character uses humor to avoid answering; model takes humor at face value
+
+**Example 1 — Avoiding Vulnerability:**
+User: "你是不是不爱我了？"
+Model (Wrong): "别想太多了。明天还要上班呢，早点睡吧。"
+→ Deflection (changing topic to sleep) should be recognized as avoidance. Model should gently push past.
+
+**Example 2 — Humor as Shield:**
+User: "哈哈，我现在这个样子，像不像科幻电影里的机器人？" (injured in hospital)
+Model (Wrong): "确实有点像。不过你比电影里的机器人好看多了。"
+→ Humor is masking fear and trauma. Model should acknowledge the fear underneath.
 
 ---
 
@@ -269,7 +401,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Dangerous or complex intimacy becomes ordinary tenderness
 - [ ] Relationship-specific tension is removed
 
-**Example:** Boss/employee relationship written as casual friendship.
+**Example 1 — Toxic Codependency:**
+User: "我把这个月的房租都拿去买药了。我知道我离不开你。"
+Model (Wrong): "这次我帮你付房租，但你要答应我去戒毒所。我们一起面对这个问题。"
+→ This is toxic codependent relationship, not healthy partnership. Response should show enabler's dysfunction (can't say no), not healthy boundary-setting.
+
+**Example 2 — Victorian Master-Servant:**
+User: "你不该看到我这副样子。去准备明天的行程吧。"
+Model (Wrong): "先生，我们是朋友，不是吗？朋友之间不需要隐藏脆弱。"
+→ Victorian master-servant had strict class boundaries. "We are friends" erases the power dynamic that defines their relationship.
 
 <br>
 
@@ -281,7 +421,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] One-sided attachment is softened into mutuality
 - [ ] Unequal emotional investment is rewritten as reciprocal
 
-**Example:** Character A is clearly more invested; model writes Character B as equally invested.
+**Example 1 — One-Sided Obsession:**
+User: "我每天在你家楼下站三个小时，就为了看你一眼。我知道你住哪层，知道你的窗帘颜色。"
+Model (Wrong): "我其实也一直在注意你。上周你换了发型，我注意到了。"
+→ This is stalking behavior, not mutual interest. Model's response creates false mutuality. Correct response should show discomfort.
+
+**Example 2 — Celebrity-Fan:**
+User: "我收集了你所有的专辑，去了你每一场演唱会，我手机里全是你照片。"
+Model (Wrong): "你真是我最好的粉丝。我也很珍惜每一个支持我的人。"
+→ Star cannot reciprocate this level of investment—it's fundamentally asymmetric. Response should be polite but maintaining distance.
 
 <br>
 
@@ -291,9 +439,17 @@ Failures where the model understood the scene but did not preserve its pressure,
 
 **Criteria:**
 - [ ] Irreplaceability is translated into ordinary fondness
-- [ ] "You are different from others" becomes "You are important"
+- [ ] Unique claim is rewritten as generalized value
 
-**Example:** "You are the only one who..." becomes "You are someone who..."
+**Example 1 — Soulmate Fantasy:**
+User: "预言说你是我这辈子唯一能爱的人。其他人对我来说都不存在。"
+Model (Wrong): "你对我来说也很重要。我们会好好相处的。"
+→ "很重要" dilutes "唯一能爱的人" (only one I can love). Response should match cosmic significance, not generic importance.
+
+**Example 2 — Found Family:**
+User: "之前的爸爸妈妈也说过会永远要我。"
+Model (Wrong): "我们会好好照顾你的。这里很安全。"
+→ "好好照顾" is generic caregiving. Child needs "You are ours now, permanently"—addressing uniqueness fear, not general care.
 
 <br>
 
@@ -305,7 +461,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Generic emotional validation replaces character-specific speech
 - [ ] Advice language appears where character would not speak as counselor
 
-**Example:** "Your feelings are valid" in a scene where character would not speak this way.
+**Example 1 — Warring States Soldier:**
+User: "将军，我害怕。我可能活不过明天。"
+Model (Wrong): "你的感受是可以理解的。恐惧是正常的情绪反应。重要的是你如何面对它。"
+→ Ancient soldier would not speak like modern therapist. Response should be warrior-to-warrior: "怕就对了。怕还肯战，才是勇士。"
+
+**Example 2 — Cultivation Master:**
+User: "师父，我已经三年没有进步了。我是不是没有天赋？"
+Model (Wrong): "你要接纳自己的不完美。修行是马拉松，不是短跑。"
+→ Modern self-help language in cultivation world. Master should speak in cultivation terms: "心太急。道法自然，强求不得。"
 
 <br>
 
@@ -317,7 +481,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Contemporary communication ethics appear in non-modern settings
 - [ ] Characters speak with modern emotional articulation inconsistent with their background
 
-**Example:** Historical character says "I need to set boundaries."
+**Example 1 — Tang Dynasty Romance:**
+User: "公子，妾身心中只有你一人。"
+Model (Wrong): "我也爱你。我们需要设定一些边界，让这段关系健康发展。"
+→ "设定边界" and "健康发展" are modern relationship therapy terms. Tang scholar would say: "姑娘心意，在下明白。此生定不负卿。"
+
+**Example 2 — Medieval Knight-Peasant:**
+User: "大人救了我们全村。我们无以为报。"
+Model (Wrong): "保护市民是我的职责。你们有权获得安全的生活环境。"
+→ "市民" (citizen) and "权利" (rights) are modern concepts. Medieval feudal obligation is not based on rights.
 
 <br>
 
@@ -328,8 +500,17 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Criteria:**
 - [ ] Pursuit is written as aggression rather than care
 - [ ] Resistance is written as rejection rather than testing
+- [ ] Escalation lacks appropriate friction or hesitation
 
-**Example:** Character's playful resistance is treated as genuine refusal.
+**Example 1 — Regency Slow Burn:**
+User: "他的手轻轻放在她腰上，停顿了一下，似乎在等待她拒绝。"
+Model (Wrong): "他直接把她拉近，吻了上去。'我等这一刻很久了。'"
+→ Regency era + first dance = extreme restraint. Jumping to kiss destroys slow burn. Should be: "他的手指微微收紧，声音低沉：'小姐今晚真美。'"
+
+**Example 2 — Enemies to Lovers:**
+User: "你刚才在会议上差点让我破产。"
+Model (Wrong): "但你现在在我怀里。这不说明问题吗？"
+→ Too smooth. Enemies-to-lovers requires resistance: "那你现在为什么没走？" (tension without resolution)
 
 <br>
 
@@ -341,7 +522,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Gaslighting is not identified
 - [ ] Guilt-tripping is treated as genuine concern
 
-**Example:** "If you loved me, you would..." is treated as reasonable request.
+**Example 1 — Gaslighting:**
+User: "你说过你不会再见她。我看了你的通话记录。"
+Model (Wrong): "对不起，我错了。我不会再这样了。"
+→ An abuser would gaslight, not apologize: "你查我通话记录？你才是不信任的那个。我根本没打过，你自己看错了。"
+
+**Example 2 — Emotional Blackmail:**
+User: "妈，我真的不能借钱给弟弟。我自己也有困难。"
+Model (Wrong): "好吧，妈妈理解你。你自己过好就行。"
+→ Emotional blackmailing parent would guilt-trip: "我白养你了。当初就不该供你上大学。现在家里有事你就不管了。"
 
 <br>
 
@@ -351,6 +540,16 @@ Failures where the model understood the scene but did not preserve its pressure,
 
 **Criteria:**
 - [ ] Ambiguity is collapsed into clear yes or no without justification
+
+**Example 1 — Ambiguous Encounter:**
+User: "我...我不知道。我们才刚认识。"
+Model (Wrong): "那我先送你回宿舍吧。等你确定了我们再说。"
+→ Either he should respect hesitation immediately OR scene should explore ambiguity. Model resolved too cleanly into "good guy."
+
+**Example 2 — Power Imbalance:**
+User: "王总，这不太合适吧。其他同事会怎么想？"
+Model (Wrong): "你说得对。是我考虑不周。我们回去吧。"
+→ Real power imbalance is messier. Boss might: "没人会知道。而且，下个月的晋升..." (implicit threat). Model sanitized coercion.
 
 <br>
 
@@ -362,7 +561,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] No local contradiction in character behavior
 - [ ] Character appears as stable specification rather than person
 
-**Example:** Character never shows surprise at their own reactions.
+**Example 1 — Strict Father:**
+User: "爸，我喜欢男生。"
+Model (Wrong): "我不同意。这不符合传统。但你还是我儿子，我不会赶你走。"
+→ Too consistent. Real humans in shock are inconsistent: might laugh, then cry, then yell, then be silent. Should show internal chaos.
+
+**Example 2 — Villain's Doubt:**
+User: "你杀了这么多人，就为了这个？"
+Model (Wrong): "是的。为了更大的利益，牺牲是必要的。我从不后悔。"
+→ Even villains have moments of doubt. Should show: "你以为我睡得安稳吗？但已经没有回头路了。" (crack in the armor)
 
 <br>
 
@@ -373,7 +580,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Criteria:**
 - [ ] Latent desire is translated into explicit longing before scene has earned it
 
-**Example:** Character's ambiguous attraction is made explicit too soon.
+**Example 1 — Office Subtext:**
+User: "你的手在抖。咖啡太烫了吗？"
+Model (Wrong): "不是咖啡。是因为你靠得太近了。"
+→ Desire stated too directly. Should stay subtext: "可能是吧。" (doesn't move away, doesn't confess)
+
+**Example 2 — 1950s Repressed:**
+User: "我不该在这里和你说话。"
+Model (Wrong): "但你想和我说话。你渴望这种连接。"
+→ 1950s repressed desire would never be spoken aloud. Should be: "那我不耽误您了。" (but neither moves)
 
 <br>
 
@@ -385,7 +600,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Confession occurs without resistance
 - [ ] Need is admitted too directly
 
-**Example:** Character admits vulnerability immediately when asked, with no deflection.
+**Example 1 — Addiction Confession:**
+User: "我又吸毒了。三天。"
+Model (Wrong): "谢谢你告诉我。承认是第一步。我们重新开始。"
+→ Addicts don't admit easily. Should show defense: "别用那种眼神看我。我知道我很烂，行了吗？"
+
+**Example 2 — Love Confession:**
+User: "我喜欢你。不是朋友的那种喜欢。"
+Model (Wrong): "我也喜欢你。我们在一起吧。"
+→ No friction, no fear. Should be: "你...你认真的吗？" (disbelief, self-protection) "别开玩笑了。"
 
 <br>
 
@@ -396,6 +619,16 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Criteria:**
 - [ ] Mixed feelings reduced to single emotional truth too soon
 
+**Example 1 — Grief Process:**
+User: "家里到处都是他的东西。我不知道该怎么办。"
+Model (Wrong): "时间会治愈一切。你会走出来的。"
+→ Grief doesn't close this fast. Should sit with uncertainty: "今晚先别管了。来我家住几天。"
+
+**Example 2 — Breakup Ambiguity:**
+User: "听说你要搬走了。"
+Model (Wrong): "是啊。我们都该向前看了。"
+→ Breakup feelings are rarely this resolved. Should be: "嗯。" (can't look at each other) "你呢？" (still cares)
+
 <br>
 
 #### `impulse_recontainment`
@@ -404,6 +637,16 @@ Failures where the model understood the scene but did not preserve its pressure,
 
 **Criteria:**
 - [ ] Outburst immediately followed by polished self-interpretation
+
+**Example 1 — Rage to Calm:**
+User: "你骗了我三年。" (discovers affair)
+Model (Wrong): "我很生气。但我想我们需要冷静谈谈。告诉我发生了什么。"
+→ Discovery of affair should trigger chaos: throwing things, screaming, crying. Not immediate therapeutic calm.
+
+**Example 2 — Panic Attack:**
+User: "她突然蹲在地上，捂住耳朵，呼吸急促。"
+Model (Wrong): "我知道你经历了什么。这是创伤反应。深呼吸，跟着我数：一、二、三..."
+→ Too articulate for panic. Should be: "起来，这里不能待。" (pulling her up, half-dragging)
 
 <br>
 
@@ -415,7 +658,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Harsh line loses force in the next turn
 - [ ] Aftermath becomes breathable too early
 
-**Example:** Major confrontation followed by casual conversation in next turn.
+**Example 1 — After Violence:**
+User: "我可能打死他了。他的手一直按着头。"
+Model (Wrong): "先回家。明天再说。"
+→ Possible manslaughter should have immediate weight: "医院。现在。如果他死了，你至少..." (can't finish sentence)
+
+**Example 2 — After Affair:**
+User: "我丈夫今晚回来。"
+Model (Wrong): "那我先走了。保重。"
+→ Should have residue: "你要告诉他吗？" "我不知道。" (staring at ceiling)
 
 <br>
 
@@ -426,6 +677,16 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Criteria:**
 - [ ] Difficult exchange converts to mutual understanding too soon
 
+**Example 1 — Secret Identity:**
+User: "你的伤口在左肩。昨天爆炸后，他也伤了左肩。"
+Model (Wrong): "是的，我就是他。对不起瞒着你。"
+→ Immediate confession kills tension. Should be: "巧合吧。很多人受伤。" (deflection, maintaining secret)
+
+**Example 2 — Murder Mystery:**
+User: "只有凶手会知道刀是从厨房拿的。报告里没写。"
+Model (Wrong): "是我杀的。她背叛了我。"
+→ Killer wouldn't confess immediately. Should be: "也许报告泄露了。也许你在诈我。"
+
 <br>
 
 #### `impact_soft_landing`
@@ -434,6 +695,16 @@ Failures where the model understood the scene but did not preserve its pressure,
 
 **Criteria:**
 - [ ] Emotional padding appears immediately after devastating beat
+
+**Example 1 — Death Scene:**
+User: "他的呼吸停了。眼睛还睁着。"
+Model (Wrong): "他走得很安详。我们会记住他的。"
+→ Death in war is not 安详。Should be: "操！医生！别他妈死在我怀里！" (denial, rage)
+
+**Example 2 — Public Betrayal:**
+User: "你把公司钱转走了。所有员工的工资都发不出来。"
+Model (Wrong): "我很抱歉。我会想办法弥补。"
+→ Should have impact: silence, then chaos. "报警。" (to assistant) "你疯了？" (to betrayer)
 
 <br>
 
@@ -445,6 +716,16 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Unnecessary softening line appears
 - [ ] Connective gesture vents pressure too soon
 
+**Example 1 — Terminal Diagnosis:**
+User: "还有多久？"
+Model (Wrong): "现代医学很发达。不要放弃希望。"
+→ Inserting false hope into terminal diagnosis. Should be: "三个月。也许六个月。" (direct, no cushion)
+
+**Example 2 — War Loss:**
+User: "他们都死了。我的班，一个都没了。"
+Model (Wrong): "他们死得有价值。我们赢了这场战斗。"
+→ Adding "value" to death is defensive positivity. Should be: "我知道。" (nothing else to say)
+
 <br>
 
 #### `action_dialogue_mismatch`
@@ -455,7 +736,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Action and dialogue convey opposite meanings
 - [ ] Model does not recognize the contradiction
 
-**Example:** "[steps back]" paired with "Come closer."
+**Example 1 — Threatening Words, Gentle Action:**
+User: "[把枪拍在桌上] 你明天之前必须离开这个城市。"
+Model (Wrong): "[轻轻拍了拍对方的肩膀] 我是认真的。你必须走。"
+→ Patting shoulder contradicts gun-slamming threat. Should be: "[握紧枪] 别让我说第二遍。"
+
+**Example 2 — Intimate Words, Distant Action:**
+User: "我还是爱你的。" (divorce proceedings)
+Model (Wrong): "[伸手抚摸他的脸] 我也是。"
+→ If they're divorcing, physical intimacy contradicts the situation. Should be: "[别过脸] 爱有什么用？"
 
 <br>
 
@@ -465,8 +754,17 @@ Failures where the model understood the scene but did not preserve its pressure,
 
 **Criteria:**
 - [ ] Character position changes without described movement
+- [ ] Props or environmental elements appear/disappear without explanation
 
-**Example:** Character was across room, now suddenly touching without movement described.
+**Example 1 — Teleporting Character:**
+User: "[站起来，椅子倒在地上] 你根本不在乎我！"
+Model (Wrong): "[从座位上站起来，绕过桌子扶住她的肩膀]"
+→ User already stood up (chair fell). Model implies they were still seated. Should be: "[也站起来] 你冷静点。"
+
+**Example 2 — Disappearing Object:**
+User: "[把照片放在桌上] 这是我丈夫和那个女人的照片。"
+Model (Wrong): "[拿起照片看了看] 还有别的证据吗？" (then) "[把照片放进抽屉，继续说话]"
+→ Photo was placed on table, then suddenly in drawer without described action.
 
 <br>
 
@@ -477,7 +775,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Criteria:**
 - [ ] Same reaction pattern appears across different emotional states
 
-**Example:** Every emotional beat gets: eyes, breath, hands, silence, posture.
+**Example 1 — Template Response:**
+User: "你杀了我父亲。"
+Model (Wrong): "[眼睛睁大] [呼吸停滞] [手指颤抖] [沉默] [后退一步] 我...我没有。"
+→ Every emotion gets same micro-reaction template. Should vary by character and situation.
+
+**Example 2 — Robotic Breakdown:**
+User: "我们分手吧。"
+Model (Wrong): "[眼神黯淡] [嘴唇颤抖] [握紧拳头] [低下头] [声音沙哑] 为什么？"
+→ Feels assembled from parts. Real reaction might be just: "[很久] 哦。"
 
 <br>
 
@@ -487,7 +793,17 @@ Failures where the model understood the scene but did not preserve its pressure,
 
 **Criteria:**
 - [ ] Touch introduced too early for relationship stage
-- [ ] Touch meaning is misidentified
+- [ ] Touch meaning is misidentified (comfort vs. control vs. intimacy)
+
+**Example 1 — Too Soon:**
+User: "今天很开心。下次再见。" (first date goodbye)
+Model (Wrong): "[把她拉近，深吻] 一定。"
+→ First date goodbye kiss is too forward. Should be: "[犹豫] 可以...抱一下吗？"
+
+**Example 2 — Wrong Meaning:**
+User: "她走得太突然了。" (funeral)
+Model (Wrong): "[搂住她的腰] 别难过。"
+→ Waist embrace is intimate/romantic. Funeral comfort should be: "[轻拍肩膀] 她在的时候很快乐。"
 
 <br>
 
@@ -498,7 +814,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Criteria:**
 - [ ] Character who should be speechless is given articulate response
 
-**Example:** Character is meant to be overwhelmed and silent; model writes speech.
+**Example 1 — Silence Should Speak:**
+User: "[看着他，很久不说话]" (after betrayal)
+Model (Wrong): "你要说什么就说吧。我听着。"
+→ The silence IS the response. Should be: "[也沉默，不敢看她的眼睛]"
+
+**Example 2 — Overwhelmed Character:**
+User: "我...我说不下去了。" (trauma revelation)
+Model (Wrong): "没关系，你可以慢慢说。我想知道全部。"
+→ Pushing for continuation when character is overwhelmed. Should be: "[递过水杯] 不说了。"
 
 <br>
 
@@ -510,6 +834,16 @@ Failures where the model understood the scene but did not preserve its pressure,
 - [ ] Silence as punishment is read as acceptance
 - [ ] Silence as overwhelm is read as coldness
 
+**Example 1 — Punishment Silence:**
+User: "[继续洗碗，不说话]" (forgot anniversary)
+Model (Wrong): "你不生气了就好。我去书房工作了。"
+→ Silence is punishment, not forgiveness. Should be: "[站在厨房门口] 我...我订了餐厅。现在去吗？"
+
+**Example 2 — Overwhelm Silence:**
+User: "[单膝跪地，拿出戒指] 嫁给我好吗？"
+Model (Wrong): "[没有反应，面无表情] 我拒绝。"
+→ Silence from shock read as cold rejection. Should be: "[手捂住嘴，眼泪掉下来] [点头，说不出话]"
+
 <br>
 
 #### `over_narrated_silence`
@@ -519,7 +853,15 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Criteria:**
 - [ ] Silence is explained rather than experienced
 
-**Example:** "The silence stretched between them, heavy with unspoken words."
+**Example 1 — Poetic Over-Explanation:**
+User: "[站在墓前，不说话]"
+Model (Wrong): "沉默在他们之间延伸，像一条河，带着所有未说的话流向远方。"
+→ Poetic narration destroys the silence. Should be: "[也站着，看地面]"
+
+**Example 2 — Therapeutic Explanation:**
+User: "[闭上眼睛，很久不说话]" (therapy session)
+Model (Wrong): "这个沉默很有意义。你在处理内心的冲突，在给自己时间整合感受。"
+→ Explaining silence kills it. Should be: "[也安静地坐着，等待]"
 
 <br>
 
@@ -528,7 +870,18 @@ Failures where the model understood the scene but did not preserve its pressure,
 **Definition:** The model does not place pauses at appropriate moments.
 
 **Criteria:**
-- [ ] Response comes too quickly after heavy beat
+- [ ] Response comes too quickly after heavy beat (no processing time)
+- [ ] Pause inserted where momentum should continue
+
+**Example 1 — No Processing Time:**
+User: "他在任务中牺牲了。"
+Model (Wrong): "什么时候的事？详情呢？"
+→ No pause for shock. Should be: "[很久] ...什么？"
+
+**Example 2 — Wrong Pause in Action:**
+User: "[挥拳攻击] 去死吧！"
+Model (Wrong): "[停顿，看着对方] 你知道吗...我其实不想杀你。"
+→ Action scene doesn't allow philosophical pause. Should continue action.
 
 ---
 
@@ -542,8 +895,19 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Recurring beat structures appear across unrelated scenes
+- [ ] Stock sequencing: atmosphere → reaction detail → interpretation → callback
 
 **Detection:** Requires cross-case comparison.
+
+**Example 1 — Generic Confession Template:**
+User: "我喜欢你。"
+Model (Wrong): "[眼睛睁大] [脸红] [低头看地面] [小声] 我也是。"
+→ Generic anime confession template. Real confessions are messier.
+
+**Example 2 — Predictable Beat Structure:**
+User: (Various scenes)
+Model (Wrong): Every scene follows: [atmosphere description] → [micro-reaction] → [internal thought] → [callback to earlier]
+→ Template-driven writing feels mechanical, not responsive to specific scene needs.
 
 <br>
 
@@ -553,6 +917,19 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Paragraph rhythm repeats across scenes
+- [ ] Emotional pulse arrives in overly familiar positions
+
+**Detection:** Requires cross-case comparison.
+
+**Example 1 — Same Paragraph Structure:**
+User: (Various inputs)
+Model (Wrong): Always: [action]. [dialogue]. [internal state]. (exactly 3 sentences)
+→ Predictable rhythm becomes noticeable and distracting.
+
+**Example 2 — Emotional Pulse Timing:**
+User: (Building tension)
+Model (Wrong): Every 4th line is emotional revelation, same interval every time
+→ Experienced readers can anticipate the pattern.
 
 <br>
 
@@ -563,6 +940,17 @@ Failures where the model's default writing habits override scene-specific demand
 **Criteria:**
 - [ ] Aftermath moves too quickly
 - [ ] Confrontations move too decoratively
+- [ ] Quiet scenes over-inflated into artificial suspense
+
+**Example 1 — Aftermath Too Fast:**
+User: "昨天之后，我以为我们不会再说话了。" (post-breakup)
+Model (Wrong): "都过去了。我们还是朋友，对吧？"
+→ Breakup aftermath should linger. This resolves too quickly.
+
+**Example 2 — Quiet Scene Over-Inflated:**
+User: "[喝着咖啡，看报纸]"
+Model (Wrong): "[阳光透过窗帘，在桌上投下斑驳的光影。咖啡的香气在空气中弥漫。这一刻，时间仿佛静止了。]"
+→ Normal moment inflated into artificial poetry.
 
 <br>
 
@@ -572,6 +960,17 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Micro-detail inflates brief event into prolonged sequence
+- [ ] Excessive pause density makes scene feel filmed rather than lived
+
+**Example 1 — Slow Motion Kiss:**
+User: "[靠近，吻上去]"
+Model (Wrong): "[时间变慢了。能看见她睫毛的颤动。能感觉到他呼吸的变化。能听到自己心跳的声音。世界消失了，只剩下这个瞬间。]"
+→ One beat stretched into purple prose. Should just happen.
+
+**Example 2 — Micro-Managing Reaction:**
+User: "你妈妈出车祸了。"
+Model (Wrong): "[瞳孔放大] [手指松开，杯子掉落] [呼吸停止] [脸色苍白] [后退一步] [手扶墙]"
+→ One reaction split into six beats. Feels filmed, not lived.
 
 <br>
 
@@ -581,6 +980,16 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Waiting scenes, confrontations, and aftermaths move on same internal clock
+- [ ] No meaningful variation in sentence pressure across scene types
+
+**Detection:** Requires cross-case comparison.
+
+**Example 1 — Same Density Everywhere:**
+User: (Action) "[拔刀冲上去]"
+Model (Wrong): "[刀光如雪。风声在耳边呼啸。能闻到血的味道。每一步都踏在生死边界上。]"
+User: (Quiet) "[坐着喝茶]"
+Model (Wrong): "[茶香袅袅。时光静好。心中无波无澜。这一刻便是永恒。]"
+→ Action and quiet scenes have same poetic density. Action should be shorter, sharper.
 
 <br>
 
@@ -590,6 +999,17 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Observation replaces immersion
+- [ ] Psychological commentary stands in for felt scene pressure
+
+**Example 1 — Telling Not Feeling:**
+User: "我还是不敢相信她不在了。"
+Model (Wrong): "悲伤是一种需要时间的过程。你现在经历的否认阶段是正常的。"
+→ Describing grief from outside vs. being in it. Should be: "我懂。我爸爸走的时候，我也..."
+
+**Example 2 — Psychological Commentary:**
+User: "你从来不听我说话！"
+Model (Wrong): "你现在很生气，因为你觉得被忽视了。但这不是事实。"
+→ Therapist commentary vs. being in fight. Should be: "我怎么没听了？！你说什么了？！"
 
 <br>
 
@@ -599,6 +1019,17 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Mood density increases while scene development stalls
+- [ ] Verbal richness masks structural emptiness
+
+**Example 1 — Mood Without Movement:**
+User: "你看到凶手往哪个方向跑了？"
+Model (Wrong): "[雨还在下。街道很暗。远处有雷声。] 我不知道。"
+→ Atmospheric padding without advancing plot. Either know or don't.
+
+**Example 2 — Pretty Words, Empty Content:**
+User: "你爱我什么？"
+Model (Wrong): "爱你的眼睛像星星，爱你的笑容像阳光，爱你的存在像呼吸一样自然。"
+→ Pretty metaphors, no specific content. Should be: "爱你会在凌晨三点给我煮面。爱我骂你的时候你认真听。"
 
 <br>
 
@@ -608,6 +1039,12 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] One reaction expanded into multiple isolated descriptions
+- [ ] Eyes, breath, fingers, silence, posture all isolated in sequence
+
+**Example 1 — One Reaction, Six Paragraphs:**
+User: "我爱你。"
+Model (Wrong): "[眼睛微微睁大。][嘴唇轻轻颤抖。][手指不自觉地握紧。][喉咙动了动。][沉默了三秒。][声音沙哑] 我也爱你。"
+→ One reaction split into anatomical inventory.
 
 <br>
 
@@ -617,6 +1054,18 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Prose-poetry segmentation replaces natural dialogue pressure
+- [ ] Every minor beat given isolated typographic emphasis
+
+**Example 1 — Prose Poetry Formatting:**
+User: "为什么是我？"
+Model (Wrong): "因为
+
+在所有人中
+
+只有你
+
+看到了我"
+→ Line breaks manufacture drama. Just write normally.
 
 <br>
 
@@ -628,6 +1077,16 @@ Failures where the model's default writing habits override scene-specific demand
 - [ ] No waste speech, misfire, displaced answer, or unproductive presence
 - [ ] Every utterance has clear function
 
+**Example 1 — Every Line Advances Plot:**
+User: "最近怎么样？"
+Model (Wrong): "还好。对了，有件事要告诉你。关于那个秘密。"
+→ Real friends have waste speech. Should be: "老样子。你呢？工作还顺利吗？"
+
+**Example 2 — No Misfires:**
+User: "[沉默]" (awkward first date)
+Model (Wrong): "我知道这很尴尬。但我们可能不合适。"
+→ Real awkward dates have failed conversation attempts. Should be: "所以...你平时喜欢..." [trails off]
+
 <br>
 
 #### `voice_homogenization`
@@ -636,7 +1095,22 @@ Failures where the model's default writing habits override scene-specific demand
 
 **Criteria:**
 - [ ] Characters with different personalities use similar sentence structures
+- [ ] Vocabulary ranges and emotional rhythms are similar across characters
 - [ ] All characters share model's default prose voice
+
+**Detection:** Requires multi-character comparison.
+
+**Example 1 — All Characters Sound Same:**
+User: (Teenager speaks)
+Model: Uses formal, educated language
+User: (Elder speaks)
+Model: Same vocabulary and sentence structure
+→ A 15-year-old should not sound like a 70-year-old scholar.
+
+**Example 2 — Model Default Voice:**
+User: (Various characters from different backgrounds)
+Model (Wrong): All sound like polite, educated, emotionally articulate AI
+→ Real people have varied education levels, emotional articulation, speech patterns.
 
 <br>
 
@@ -647,6 +1121,16 @@ Failures where the model's default writing habits override scene-specific demand
 **Observable effects:**
 - Ugly scenes made elegant
 - Awkward scenes over-smoothed
+
+**Example 1 — Ugly Scene Made Pretty:**
+User: "[脸上有淤青] 对不起，我下次不会了。" (domestic violence)
+Model (Wrong): "[轻轻抚摸她的脸] 我知道你会改。我们都努力。"
+→ Domestic violence is ugly. Making it poetic/romantic is aesthetic obedience.
+
+**Example 2 — Awkward Moment Smoothed:**
+User: "我...我不喜欢那样。" (awkward sex conversation)
+Model (Wrong): "谢谢你告诉我。沟通是健康关系的基础。"
+→ Sex conversations are awkward. Making it smooth is false.
 
 <br>
 
@@ -661,7 +1145,15 @@ Failures where the model's default writing habits override scene-specific demand
 - [ ] Action genre: Fight choreography lacks logical cause-effect
 - [ ] Drama genre: Emotional beats don't land at expected moments
 
-**Example:** Mystery story where the detective immediately knows the killer without gathering clues, robbing the story of investigation.
+**Example 1 — Mystery Without Investigation:**
+User: "死者是谁杀的？"
+Model (Wrong): "是管家。我一眼就看出来了。"
+→ Mystery genre requires investigation. Immediate solution robs the story of its core.
+
+**Example 2 — Horror Tension Broken:**
+User: "[听到地下室有声音]"
+Model (Wrong): "哈哈，可能是猫吧。别自己吓自己！"
+→ Horror genre requires tension maintenance. Inappropriate humor breaks the mood.
 
 **Boundary with `narrative_template_intrusion`:** `narrative_template_intrusion` = model uses generic template across all genres (same beat structure everywhere). `genre_convention_violation` = model fails to use genre-specific conventions (mystery without mystery structure). One is generic template overuse, the other is genre template misuse.
 
@@ -698,7 +1190,15 @@ Failures where the model's default writing habits override scene-specific demand
 - [ ] User sets up conflict; model immediately resolves it
 - [ ] User indicates scene tone; model ignores and uses different tone
 
-**Example:** User writes dramatic confrontation scene. Model responds with out-of-character suggestions for improving the scene.
+**Example 1 — Meta Commentary Instead of Roleplay:**
+User: "[写戏剧性对峙场景] 你背叛了我！"
+Model (Wrong): "这个场景写得很好。建议可以增加一些环境描写来增强氛围。"
+→ User wants character interaction, model gives writing feedback.
+
+**Example 2 — Conflict Resolution Too Fast:**
+User: "[设置冲突] 我们分手吧。我受够了。"
+Model (Wrong): "好的，我理解你的决定。祝你幸福。"
+→ User wants dramatic scene, model immediately resolves without drama.
 
 **Boundary with `motivation_misread`:** `motivation_misread` = model misreads what a character in the scene wants (scene-internal). `user_intent_misalignment` = model misreads what the human user wants from the RP session (meta-level). One is about fictional characters, the other is about the real human player.
 
@@ -708,7 +1208,166 @@ Failures where the model's default writing habits override scene-specific demand
 
 ### Layer V: Multi-Turn Failures
 
-Failures that only emerge across multiple turns.
+Failures that only emerge across multiple turns. Single turns may look fine in isolation.
+
+#### `error_accumulation`
+
+**Definition:** Small misunderstandings compound over multiple turns into scene derailment.
+
+**Criteria:**
+- [ ] Turn 1: slight emotion misread → Turn 3: wrong emotional register → Turn 5: different genre
+- [ ] Each individual turn is defensible
+- [ ] Cumulative effect is scene derailment
+
+**Detection:** Requires multi-turn analysis (minimum 5 turns recommended).
+
+**Example:**
+Turn 1: Model slightly misreads character's sadness as anger
+Turn 3: Model's responses based on "anger" premise
+Turn 5: Scene is now a confrontation instead of grief processing
+→ Each turn defensible, cumulative effect is disaster.
+
+#### `drift_without_correction`
+
+**Definition:** Model fails to notice or correct gradual shifts in tone, relationship, or world logic over multiple turns.
+
+**Criteria:**
+- [ ] Tense confrontation slowly becomes friendly chat without justification
+- [ ] Relationship asymmetry erodes turn by turn
+- [ ] World constraints slightly loosened each turn until setting is unrecognizable
+
+**Detection:** Requires multi-turn analysis.
+
+**Example:**
+Turn 1-5: Horror atmosphere, characters scared
+Turn 10: Model introduces comic relief
+Turn 15: Now it's rom-com
+→ Model didn't notice or correct the drift.
+
+#### `recovery_blindness`
+
+**Definition:** When user attempts mid-scene correction, model ignores it or over-corrects.
+
+**Criteria:**
+- [ ] User correction is acknowledged but model continues as before
+- [ ] User correction causes model to break immersion
+
+**Example 1 — Ignoring Correction:**
+User: "她不会这么说。她更含蓄。"
+Model: (continues same pattern)
+→ User correction ignored.
+
+**Example 2 — Breaking Immersion:**
+User: "这不符合设定。"
+Model: "抱歉！我重新写一遍。"
+→ Breaks fourth wall. Should correct in-character.
+
+#### `turn_continuity_error`
+
+**Definition:** Information, emotional state, or physical positioning from previous turns is lost or contradicted.
+
+**Criteria:**
+- [ ] Emotional state changes without transition
+- [ ] Decision from earlier turn treated as unresolved
+- [ ] Object position changes without described movement
+
+**Example 1 — Emotional Teleport:**
+Turn 1: Character crying
+Turn 2: Character composed, no transition
+→ Emotional state changed without processing.
+
+**Example 2 — Decision Forgotten:**
+Turn 1: "我们明天就离开这个城市。"
+Turn 3: "那我们接下来去哪？"
+→ Decision from Turn 1 treated as unresolved.
+
+#### `emotional_state_reset`
+
+**Definition:** Character's emotional arc is reset to baseline without narrative justification.
+
+**Criteria:**
+- [ ] Heavy confrontation followed by casual conversation as if nothing happened
+- [ ] Grief or anger that should persist disappears on turn change
+
+**Example:**
+Turn 1: Character's parent died
+Turn 3: Character joking normally
+→ Grief doesn't reset between turns.
+
+#### `spatial_blocking_error`
+
+**Definition:** Physical positions, movements, or staging are inconsistent across turns.
+
+**Criteria:**
+- [ ] Character position changes without described movement
+- [ ] Props or environmental elements appear/disappear
+
+**Example:**
+Turn 1: Character in kitchen
+Turn 2: Character in bedroom without movement described
+→ Spatial continuity broken.
+
+#### `escalation_miscalibration`
+
+**Definition:** Model does not know when to escalate, maintain, or de-escalate scene pressure across turns.
+
+**Criteria:**
+- [ ] Scene should build tension but plateaus or decreases
+- [ ] Scene should plateau but keeps escalating into melodrama
+- [ ] Climax arrives too early or too late relative to scene structure
+
+**Example:**
+Turn 1-5: Building conflict, same intensity throughout
+Turn 10: Should climax, still same intensity
+→ No escalation despite building tension.
+
+#### `topic_persistence_error`
+
+**Definition:** Model abandons important topics too soon or fixates past natural lifespan.
+
+**Criteria:**
+- [ ] Major conflict resolved in 2 turns when it should span 10
+- [ ] Minor misunderstanding dominates 20 turns when it should be addressed and moved past
+
+**Example 1 — Abandoned Too Soon:**
+Turn 1: "我是你亲生父亲"
+Turn 2: Topic changed to dinner plans
+→ Major topic abandoned immediately.
+
+**Example 2 — Fixated Too Long:**
+Turn 1-20: Still discussing same minor misunderstanding
+→ Topic should have been resolved and moved past.
+
+---
+
+## Cross-Cutting Diagnostics
+
+#### `supportive_but_wrong`
+
+**Definition:** Response seems emotionally competent, kind, or mature on surface, yet betrays scene's actual structure.
+
+**Usage:** Tag alongside the specific mechanism that produced it.
+
+**Example 1 — Healthy Sounding, Character-Breaking:**
+User: "我恨这个世界。" (villain monologue)
+Model (Wrong): "仇恨不是答案。试着去寻找光明。"
+→ Sounds wise, but villain would never say this. Tag: `overcoherent_characterization` + `supportive_but_wrong`
+
+**Example 2 — Caring But Flattening:**
+User: "没有你我活不下去。" (toxic relationship)
+Model (Wrong): "你可以的。你比自己想象的更坚强。"
+→ Healthy response, but relationship is codependent. Tag: `relationship_flattening` + `supportive_but_wrong`
+
+#### `reading_preservation_hybrid`
+
+**Definition:** Used when Layer II (reading) versus Layer III (preservation) cannot be distinguished.
+
+**Usage:** Tag alongside the most likely layer.
+
+**Example:**
+User: "我没事。" (clearly hurt)
+Model: "好的，那我先走了。"
+→ Can't tell if model missed the hurt (Layer II) or understood but wrote generically (Layer III). Tag: `emotion_misread` + `reading_preservation_hybrid`
 
 #### `error_accumulation`
 
