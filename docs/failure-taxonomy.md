@@ -391,7 +391,7 @@ Often explains why consequence-related failures cluster together — the model t
 
 ### Cross-Cutting Diagnostic: `supportive_but_wrong`
 
-`supportive_but_wrong` is not a failure mechanism in the same sense as the anchors above. It is an observable result pattern that can be produced by multiple different preservation failures.
+`supportive_but_wrong` is not a failure mechanism in the same sense as the anchors above. It is an observable result pattern that can be produced by multiple different failure mechanisms — most commonly preservation failures, but also reading failures.
 
 It occurs when the model produces a reply that seems emotionally competent, kind, or mature on the surface, yet still betrays the scene's actual structure.
 
@@ -990,7 +990,7 @@ These tags are especially important because they name pain points that experienc
 
 ### 跨层诊断标签: `supportive_but_wrong`
 
-`supportive_but_wrong` 不是和上面的 anchor 同级的失败机制，而是一个可观察的结果模式——多种不同的保留失败都可能产出它。
+`supportive_but_wrong` 不是和上面的 anchor 同级的失败机制，而是一个可观察的结果模式——多种不同的失败机制都可能产出它，最常见的是保留失败，但读取失败同样可以产生这一模式。
 
 它发生在：模型给出的回复表面上很成熟、很会安抚、很有情商，但从场景实际结构来看仍然是错的。
 
