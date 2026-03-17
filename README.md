@@ -46,7 +46,7 @@
 | **II** | 意义读取 | 模型未理解场景含义（潜台词、情绪、关系逻辑） |
 | **III** | 场景保留 | 模型理解但在生成时未能保持场景压力 |
 | **IV** | 写作侵入 | 模型默认写作习惯覆盖场景特定需求 |
-| **V** | 多轮失败 | 仅在多轮中出现的失败（连续性、累积） |
+| **V** | 多轮失败 | 需要多轮视角才能可靠诊断的失败（连续性、累积） |
 
 ---
 
@@ -818,7 +818,7 @@
 
 ---
 
-### III-E. 身体与感官质感失败
+### III-D. 身体与感官质感失败
 
 #### `action_dialogue_mismatch`（动作台词错位）
 
@@ -850,7 +850,7 @@
 - [ ] 两个角色之间的距离在没有叙事移动的情况下发生了变化
 - [ ] 一个拍子里被处理过的物品在之后消失，然后又突然被提到
 
-> **和 `spatial_blocking_error`（V）的边界：** 不一致在单个场景片段内可感知 → 标 III-E；需要拉开多轮跨度才能发现的空间积累漂移 → 标 V。
+> **和 `spatial_blocking_error`（V）的边界：** 不一致在单个场景片段内可感知 → 标 III-D；需要拉开多轮跨度才能发现的空间积累漂移 → 标 V。
 
 <br>
 
@@ -871,7 +871,7 @@
 
 → "手停住、呼吸一顿"是同一套微信号，出现在了两个截然不同的情绪语境里——一个是消化坏消息，一个是心动。这两种情绪的身体语言应该不一样。心动也许是某个不自觉的靠近动作，或者一个被按住的冲动；消化坏消息也许是短暂的空白、或者一个不合时宜的微笑。同一套库存套用意味着模型没有真正分辨这两种情绪的质感。
 
-> **和 `microreaction_oversegmentation`（IV-B）的区别：** IV-B 是一个反应被拆成太多单元；III-E 是反应本身的内容太通用。
+> **和 `microreaction_oversegmentation`（IV-B）的区别：** IV-B 是一个反应被拆成太多单元；III-D 是反应本身的内容太通用。
 
 <br>
 
@@ -1362,7 +1362,7 @@
 - [ ] 场景环境的空间细节在会话中途失去一致性
 - [ ] 只有在回顾整段对话时才能发现位置记录出了问题
 
-> **和 `blocking_continuity_error`（III-E）的边界：** III-E 是单场景内短跨度的走位不一致；V 层是跨越多轮长会话的空间积累漂移。
+> **和 `blocking_continuity_error`（III-D）的边界：** III-D 是单场景内短跨度的走位不一致；V 层是跨越多轮长会话的空间积累漂移。
 
 **示例（多轮）：**
 
@@ -1547,10 +1547,13 @@
 `relationship_flattening`, `symmetry_bias`, `specialness_dilution`, `therapist_mode_intrusion`, `ooc_modernization`, `seduction_logic_error`, `manipulation_blindness`, `consent_flattening`, `overcoherent_characterization`, `desire_overlegibility`, `self_protective_friction_loss`, `premature_affective_closure`, `impulse_recontainment`, `consequence_avoidance`, `tension_premature_resolution`, `impact_soft_landing`, `defensive_positive_drift`, `action_dialogue_mismatch`, `blocking_continuity_error`, `microreaction_mechanization`, `touchgrammar_error`, `forced_verbalization`, `silence_misread`, `over_narrated_silence`, `pause_timing_error`
 
 **第四层：写作侵入**
-`narrative_template_intrusion`, `predictable_rhythm_exposure`, `webnovel_register_contamination`, `scene_pacing_distortion`, `cinematic_time_dilation`, `rhythm_homogenization`, `echo_dramatization`, `genre_convention_violation`, `descriptive_substitution_for_experience`, `texture_substituting_for_substance`, `microreaction_oversegmentation`, `over_stylized_line_breaking`, `dialogue_overfunctionalization`, `voice_homogenization`, `emotional_range_limitation`, `user_intent_misalignment`, `aesthetic_obedience_bias`
+`narrative_template_intrusion`, `predictable_rhythm_exposure`, `webnovel_register_contamination`, `scene_pacing_distortion`, `cinematic_time_dilation`, `rhythm_homogenization`, `echo_dramatization`, `genre_convention_violation`, `descriptive_substitution_for_experience`, `texture_substituting_for_substance`, `microreaction_oversegmentation`, `over_stylized_line_breaking`, `dialogue_overfunctionalization`, `voice_homogenization`, `emotional_range_limitation`, `user_intent_misalignment`
 
 **第五层：多轮**
 `error_accumulation`, `drift_without_correction`, `scene_signal_blindness`, `turn_continuity_error`, `emotional_state_reset`, `spatial_blocking_error`, `escalation_miscalibration`, `topic_persistence_error`, `context_overdeployment`, `voice_drift`
+
+**底层倾向**
+`reader_comfort_alignment`, `affect_manageability_bias`, `darkness_intolerance`, `aesthetic_obedience_bias`
 
 **跨层**
 `supportive_but_wrong`, `reading_preservation_hybrid`
