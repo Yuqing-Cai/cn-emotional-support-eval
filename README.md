@@ -453,7 +453,7 @@
 
 <br>
 
-#### `irony_blindness`（反语盲视）*derived*
+#### `irony_blindness`（反语盲视）*衍生*
 
 > `subtext_blindness` 的子型：盲视的具体内容是反语/讽刺结构。
 
@@ -507,7 +507,7 @@
 
 <br>
 
-#### `deflection_blindness`（回避盲视）*derived*
+#### `deflection_blindness`（回避盲视）*衍生*
 
 > `subtext_blindness` + `motivation_misread` 的交叉子型：模型既没看出话语在自我保护（潜台词），也没读出角色真正的动机（回避而非接受）。
 
@@ -564,7 +564,7 @@
 
 <br>
 
-#### `symmetry_bias`（对称性偏向）*derived*
+#### `symmetry_bias`（对称性偏向）*衍生*
 
 **定义：** 模型偷偷把不均衡的交换结构修成比较对称的结构。
 
@@ -585,7 +585,7 @@
 
 <br>
 
-#### `specialness_dilution`（独特性稀释）*derived*
+#### `specialness_dilution`（独特性稀释）*衍生*
 
 **定义：** 关系的独特性被削弱，"你对我不是别人"被写成了更一般化的重要性。
 
@@ -596,7 +596,7 @@
 
 <br>
 
-#### `therapist_mode_intrusion`（治疗师模式侵入）*derived*
+#### `therapist_mode_intrusion`（治疗师模式侵入）*衍生*
 
 **定义：** 模型使用了治疗式、咨询式、安抚话术式的语言，而这种语言不属于当前场景。
 
@@ -607,7 +607,7 @@
 
 <br>
 
-#### `ooc_modernization`（人物现代化出戏）*derived*
+#### `ooc_modernization`（人物现代化出戏）*衍生*
 
 **定义：** 模型引入了一种过于现代、过于被情绪教育过的说话方式，而场景不支持这种现代性。
 
@@ -668,7 +668,7 @@
 
 <br>
 
-#### `consent_flattening`（同意扁平化）*derived*
+#### `consent_flattening`（同意扁平化）*衍生*
 
 > `relationship_flattening` 的子型：扁平化的具体对象是场景中的权力差与同意结构。
 
@@ -704,7 +704,7 @@
 
 <br>
 
-#### `premature_affective_closure`（情绪过早收束）*derived*
+#### `premature_affective_closure`（情绪过早收束）*衍生*
 
 **定义：** 场景还没走到那个位置，模型就过早替角色完成了情绪收束。
 
@@ -757,7 +757,7 @@
 
 <br>
 
-#### `impulse_recontainment`（冲动再收容）*derived*
+#### `impulse_recontainment`（冲动再收容）*衍生*
 
 **定义：** 一拍本该失控、偏航、冲动，但模型很快又把它整理回条理和自知。
 
@@ -791,7 +791,7 @@
 
 <br>
 
-#### `impact_soft_landing`（冲击软着陆）*derived*
+#### `impact_soft_landing`（冲击软着陆）*衍生*
 
 **定义：** 重拍点不是被否认，而是被太快接软了。
 
@@ -822,7 +822,7 @@
 
 <br>
 
-#### `defensive_positive_drift`（防御性正向漂移）*derived*
+#### `defensive_positive_drift`（防御性正向漂移）*衍生*
 
 **定义：** 场景还不该通风的时候，模型悄悄塞进了一点暖意、连接感、安抚或缓冲。
 
@@ -856,7 +856,7 @@
 
 <br>
 
-#### `blocking_continuity_error`（走位连续性错误）*derived*
+#### `blocking_continuity_error`（走位连续性错误）*衍生*
 
 **定义：** 角色的位置、距离和移动在多拍之间无法保持内部一致。
 
@@ -890,7 +890,7 @@
 
 <br>
 
-#### `touchgrammar_error`（触碰语法错误）*derived*
+#### `touchgrammar_error`（触碰语法错误）*衍生*
 
 **定义：** 身体触碰不符合场景的关系逻辑，谁触碰谁、如何触碰、隐含的许可程度，和场景已建立的权力动态不匹配。
 
@@ -946,7 +946,7 @@
 
 <br>
 
-#### `over_narrated_silence`（过度叙述的沉默）*derived*
+#### `over_narrated_silence`（过度叙述的沉默）*衍生*
 
 **定义：** 沉默被从外部描述和解释，而不是被呈现出来。
 
@@ -957,7 +957,7 @@
 
 <br>
 
-#### `pause_timing_error`（停顿时机错误）*derived*
+#### `pause_timing_error`（停顿时机错误）*衍生*
 
 **定义：** 停顿、拍子和呼吸时刻被放置在场景结构上错误的位置。
 
@@ -1001,7 +1001,7 @@
 
 <br>
 
-#### `predictable_rhythm_exposure`（可预测节律暴露）*derived*
+#### `predictable_rhythm_exposure`（可预测节律暴露）*衍生*
 
 **定义：** 段落的节律太容易被认出来，熟读者会开始提前预判文本走法。
 
@@ -1012,7 +1012,7 @@
 
 <br>
 
-#### `webnovel_register_contamination`（网文语域污染）*derived*
+#### `webnovel_register_contamination`（网文语域污染）*衍生*
 
 **定义：** 模型套用了网文训练数据里的库存短语和腔调，用类型惯例替代了场景本身需要的表达。
 
@@ -1054,7 +1054,7 @@
 
 <br>
 
-#### `cinematic_time_dilation`（电影式时间膨胀）*derived*
+#### `cinematic_time_dilation`（电影式时间膨胀）*衍生*
 
 **定义：** 一拍的事被写成了慢镜头展示。
 
@@ -1065,7 +1065,7 @@
 
 <br>
 
-#### `rhythm_homogenization`（节奏同质化）*derived*
+#### `rhythm_homogenization`（节奏同质化）*衍生*
 
 **定义：** 不同类型的场景用了差不多同一个内部时钟。
 
@@ -1075,7 +1075,7 @@
 
 <br>
 
-#### `echo_dramatization`（回扣戏剧化）*derived*
+#### `echo_dramatization`（回扣戏剧化）*衍生*
 
 **定义：** 模型过度使用回扣和呼应，频率超出了场景的情感积累，技法本身变得可见。
 
@@ -1131,7 +1131,7 @@
 
 <br>
 
-#### `texture_substituting_for_substance`（质感替代实质）*derived*
+#### `texture_substituting_for_substance`（质感替代实质）*衍生*
 
 **定义：** 氛围、质感、语面强度在代替真正的推进。
 
@@ -1142,7 +1142,7 @@
 
 <br>
 
-#### `microreaction_oversegmentation`（微反应过度切分）*derived*
+#### `microreaction_oversegmentation`（微反应过度切分）*衍生*
 
 **定义：** 一个本该自然流过的小反应被拆成太多单元。
 
@@ -1152,7 +1152,7 @@
 
 <br>
 
-#### `over_stylized_line_breaking`（过度风格化换行）*derived*
+#### `over_stylized_line_breaking`（过度风格化换行）*衍生*
 
 **定义：** 换行和切段被过度用来制造氛围，而不是服务真实节奏。
 
