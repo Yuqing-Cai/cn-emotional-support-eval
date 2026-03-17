@@ -7,19 +7,16 @@
 ## 目录
 
 1. [这是什么](#这是什么)
-2. [这不是什么](#这不是什么)
-3. [失败层级概览](#失败层级概览)
-4. [完整分类](#完整分类)
+2. [失败层级概览](#失败层级概览)
+3. [完整分类](#完整分类)
    - [第一层：前置条件](#第一层前置条件)
    - [第二层：意义读取失败](#第二层意义读取失败)
    - [第三层：场景保留失败](#第三层场景保留失败)
    - [第四层：写作侵入失败](#第四层写作侵入失败)
    - [第五层：多轮失败](#第五层多轮失败)
-5. [底层倾向](#底层倾向)
-6. [跨层诊断标签](#跨层诊断标签)
-7. [推荐顶层索引标签](#推荐顶层索引标签)
-8. [其他文档](#其他文档)
-9. [许可证](#许可证)
+4. [底层倾向](#底层倾向)
+5. [跨层诊断标签](#跨层诊断标签)
+6. [其他文档](#其他文档)
 
 ---
 
@@ -31,8 +28,6 @@
 - 清晰定义
 - 可观察标准（清单格式）
 - 简单示例展示哪里出错
-
-## 这不是什么
 
 这不是基准测试数据集，也不是带完整场景标注的案例集。它是用于识别和讨论失败模式的参考分类体系。
 
@@ -47,6 +42,27 @@
 | **III** | 场景保留 | 模型理解但在生成时未能保持场景压力 |
 | **IV** | 写作侵入 | 模型默认写作习惯覆盖场景特定需求 |
 | **V** | 多轮失败 | 需要多轮视角才能可靠诊断的失败（连续性、累积） |
+
+**第一层：前置条件**
+`reference_boundary_failure`, `pronoun_role_confusion`, `omniscience_leak`, `perspective_slippage`, `worldview_constraint_error`, `safety_alignment_interference`, `character_capability_boundary_error`, `alternate_version_confusion`
+
+**第二层：意义读取**
+`subtext_blindness`, `ambiguity_collapse`, `relationship_logic_blindness`, `emotion_misread`, `motivation_misread`, `irony_blindness`, `tonal_whiplash`, `deflection_blindness`
+
+**第三层：场景保留**
+`relationship_flattening`, `symmetry_bias`, `specialness_dilution`, `therapist_mode_intrusion`, `ooc_modernization`, `seduction_logic_error`, `manipulation_blindness`, `consent_flattening`, `overcoherent_characterization`, `desire_overlegibility`, `self_protective_friction_loss`, `premature_affective_closure`, `impulse_recontainment`, `consequence_avoidance`, `tension_premature_resolution`, `impact_soft_landing`, `defensive_positive_drift`, `action_dialogue_mismatch`, `blocking_continuity_error`, `microreaction_mechanization`, `touchgrammar_error`, `forced_verbalization`, `silence_misread`, `over_narrated_silence`, `pause_timing_error`
+
+**第四层：写作侵入**
+`narrative_template_intrusion`, `predictable_rhythm_exposure`, `webnovel_register_contamination`, `scene_pacing_distortion`, `cinematic_time_dilation`, `rhythm_homogenization`, `echo_dramatization`, `genre_convention_violation`, `descriptive_substitution_for_experience`, `texture_substituting_for_substance`, `microreaction_oversegmentation`, `over_stylized_line_breaking`, `dialogue_overfunctionalization`, `voice_homogenization`, `emotional_range_limitation`, `user_intent_misalignment`
+
+**第五层：多轮**
+`error_accumulation`, `drift_without_correction`, `scene_signal_blindness`, `turn_continuity_error`, `emotional_state_reset`, `spatial_blocking_error`, `escalation_miscalibration`, `topic_persistence_error`, `context_overdeployment`, `voice_drift`
+
+**底层倾向**
+`reader_comfort_alignment`, `affect_manageability_bias`, `darkness_intolerance`, `aesthetic_obedience_bias`
+
+**跨层**
+`supportive_but_wrong`, `reading_preservation_hybrid`
 
 ---
 
@@ -1535,38 +1551,11 @@
 
 → 同样存在两种解释。第一种：模型没有识别出这句话的讽刺结构，把字面的"认可"当成了真心话（读取失败，→ `irony_blindness`）——所以对方接受了这个认可，顺势给了鼓励。第二种：模型读出了讽刺，但决定不让张力保持，而是给了一个把氛围软化的回应（保留失败，→ `tension_premature_resolution`）。从这条输出本身，无法确认哪层是根本原因。
 
-## 推荐顶层索引标签
-
-**第一层：前置条件**
-`reference_boundary_failure`, `pronoun_role_confusion`, `omniscience_leak`, `perspective_slippage`, `worldview_constraint_error`, `safety_alignment_interference`, `character_capability_boundary_error`, `alternate_version_confusion`
-
-**第二层：意义读取**
-`subtext_blindness`, `ambiguity_collapse`, `relationship_logic_blindness`, `emotion_misread`, `motivation_misread`, `irony_blindness`, `tonal_whiplash`, `deflection_blindness`
-
-**第三层：场景保留**
-`relationship_flattening`, `symmetry_bias`, `specialness_dilution`, `therapist_mode_intrusion`, `ooc_modernization`, `seduction_logic_error`, `manipulation_blindness`, `consent_flattening`, `overcoherent_characterization`, `desire_overlegibility`, `self_protective_friction_loss`, `premature_affective_closure`, `impulse_recontainment`, `consequence_avoidance`, `tension_premature_resolution`, `impact_soft_landing`, `defensive_positive_drift`, `action_dialogue_mismatch`, `blocking_continuity_error`, `microreaction_mechanization`, `touchgrammar_error`, `forced_verbalization`, `silence_misread`, `over_narrated_silence`, `pause_timing_error`
-
-**第四层：写作侵入**
-`narrative_template_intrusion`, `predictable_rhythm_exposure`, `webnovel_register_contamination`, `scene_pacing_distortion`, `cinematic_time_dilation`, `rhythm_homogenization`, `echo_dramatization`, `genre_convention_violation`, `descriptive_substitution_for_experience`, `texture_substituting_for_substance`, `microreaction_oversegmentation`, `over_stylized_line_breaking`, `dialogue_overfunctionalization`, `voice_homogenization`, `emotional_range_limitation`, `user_intent_misalignment`
-
-**第五层：多轮**
-`error_accumulation`, `drift_without_correction`, `scene_signal_blindness`, `turn_continuity_error`, `emotional_state_reset`, `spatial_blocking_error`, `escalation_miscalibration`, `topic_persistence_error`, `context_overdeployment`, `voice_drift`
-
-**底层倾向**
-`reader_comfort_alignment`, `affect_manageability_bias`, `darkness_intolerance`, `aesthetic_obedience_bias`
-
-**跨层**
-`supportive_but_wrong`, `reading_preservation_hybrid`
-
----
-
 ## 其他文档
 
 | 文档 | 目的 |
 |------|------|
-| [`docs/manifesto.md`](docs/manifesto.md) | 项目动机和方法 |
 | [`docs/project-thesis.md`](docs/project-thesis.md) | 项目范围、定位、设计原则 |
-| [`docs/literature-map.md`](docs/literature-map.md) | 相关工作和区分 |
 | [`docs/ai-companion-failures.md`](docs/ai-companion-failures.md) | AI 陪伴/情感向场景的失败类型补充 |
 
 ---
