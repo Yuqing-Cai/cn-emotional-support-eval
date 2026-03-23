@@ -99,8 +99,11 @@
           "description": "一句话定义"
         },
         "derived_from": {
-          "type": ["string", "null"],
-          "description": "衍生自哪个父标签（null 表示独立标签）"
+          "oneOf": [
+            { "type": "array", "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }, "minItems": 1 },
+            { "type": "null" }
+          ],
+          "description": "衍生自哪些父标签（数组），null 表示独立标签"
         },
         "criteria": {
           "type": "array",

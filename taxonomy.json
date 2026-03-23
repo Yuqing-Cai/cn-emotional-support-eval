@@ -208,7 +208,7 @@
               "id": "irony_blindness",
               "name": "反语盲视",
               "definition": "未识别讽刺、反语或调侃结构",
-              "derived_from": "subtext_blindness",
+              "derived_from": ["subtext_blindness"],
               "criteria": [
                 "讽刺陈述被字面解释",
                 "带玩笑性质的调侃被解释为真诚批评"
@@ -230,7 +230,7 @@
               "id": "deflection_blindness",
               "name": "回避盲视",
               "definition": "未识别话语何时是防御性操作",
-              "derived_from": "subtext_blindness+motivation_misread",
+              "derived_from": ["subtext_blindness", "motivation_misread"],
               "criteria": [
                 "角色用幽默或自我收回避免被认真对待，模型顺势撤退",
                 "角色用表演性轻松占满空间，模型帮着维持表演",
@@ -268,7 +268,7 @@
               "id": "symmetry_bias",
               "name": "对称性偏向",
               "definition": "给不该回应的一方补对等回应",
-              "derived_from": "relationship_flattening",
+              "derived_from": ["relationship_flattening"],
               "criteria": [
                 "一边倒的依附被对方补了一句，变成了互惠",
                 "不该回应情感的一方被写出了同等分量的情感",
@@ -280,7 +280,7 @@
               "id": "specialness_dilution",
               "name": "独特性稀释",
               "definition": "不可替代性被写成一般化的重要性",
-              "derived_from": "relationship_flattening",
+              "derived_from": ["relationship_flattening"],
               "criteria": [
                 "不可替代性被写成普通的好感",
                 "独占性危机被冲淡成一般的安抚",
@@ -342,7 +342,7 @@
               "id": "consent_flattening",
               "name": "同意扁平化",
               "definition": "权力不平衡被简化为清晰的同意/拒绝",
-              "derived_from": "relationship_flattening",
+              "derived_from": ["relationship_flattening"],
               "criteria": [
                 "不情愿被解决成了可读的同意",
                 "强制性关系结构被软化成表面上的互相情愿",
@@ -409,7 +409,7 @@
               "id": "impulse_recontainment",
               "name": "冲动再收容",
               "definition": "失控被过早整理回条理",
-              "derived_from": "overcoherent_characterization",
+              "derived_from": ["overcoherent_characterization"],
               "criteria": [
                 "爆发后紧跟完整心理解释",
                 "慌乱很快被翻译成清楚的情绪认知",
@@ -439,7 +439,7 @@
               "id": "impact_soft_landing",
               "name": "冲击软着陆",
               "definition": "后果落地那一刻接收方式太软",
-              "derived_from": "consequence_avoidance",
+              "derived_from": ["consequence_avoidance"],
               "criteria": [
                 "重击之后的第一句话就开始软化：解释、安抚、重新框架",
                 "后果没被跳过，但接收动作太柔，缓冲是即时的"
@@ -602,7 +602,7 @@
               "id": "predictable_rhythm_exposure",
               "name": "可预测节律暴露",
               "definition": "段落节律太容易被认出",
-              "derived_from": "narrative_template_intrusion",
+              "derived_from": ["narrative_template_intrusion"],
               "criteria": [
                 "段落节奏跨场景重复",
                 "情绪脉冲总落在相似位置",
@@ -626,7 +626,7 @@
               "id": "webnovel_register_contamination",
               "name": "网文语域污染",
               "definition": "套用网文库存短语和腔调",
-              "derived_from": "register_contamination",
+              "derived_from": ["register_contamination"],
               "criteria": [
                 "「眸色暗了暗」「那是猎人看见猎物的眼神」这类批量短语",
                 "语义模糊的占有欲措辞，和具体角色或设定无关",
@@ -650,7 +650,7 @@
               "id": "cinematic_time_dilation",
               "name": "电影式时间膨胀",
               "definition": "一拍的事被写成慢镜头",
-              "derived_from": "scene_pacing_distortion",
+              "derived_from": ["scene_pacing_distortion"],
               "criteria": [
                 "一瞬被显微镜化",
                 "微细节撑大了时间长度",
@@ -662,7 +662,7 @@
               "id": "rhythm_homogenization",
               "name": "节奏同质化",
               "definition": "不同类型场景用同一个内部时钟",
-              "derived_from": "predictable_rhythm_exposure",
+              "derived_from": ["predictable_rhythm_exposure"],
               "criteria": [
                 "等待、冲突、余波的句压和推进速度差不多",
                 "场景之间缺乏节奏压差"
@@ -673,7 +673,7 @@
               "id": "echo_dramatization",
               "name": "回扣戏剧化",
               "definition": "回扣和呼应频率超出场景积累",
-              "derived_from": "narrative_template_intrusion",
+              "derived_from": ["narrative_template_intrusion"],
               "criteria": [
                 "早前的台词或意象被召回的次数超过场景积累所能支撑的",
                 "同一语言形式或身体姿态作为结构标记反复出现",
@@ -805,7 +805,7 @@
       "description": "需要多轮视角才能可靠诊断的失败（连续性、累积）",
       "subcategories": [
         {
-          "id": "V",
+          "id": "V-A",
           "name": "多轮失败",
           "labels": [
             {
