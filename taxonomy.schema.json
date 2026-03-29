@@ -115,6 +115,10 @@
           "type": "string",
           "enum": ["high", "medium", "low"],
           "description": "标注者间一致性预期：high=客观可观察, medium=需上下文判断, low=高度主观或需跨场景比较"
+        },
+        "example": {
+          "type": "string",
+          "description": "一句话示例概要，描述具体场景中的失败表现"
         }
       }
     },
@@ -153,6 +157,10 @@
         },
         "definition": {
           "type": "string"
+        },
+        "example": {
+          "type": "string",
+          "description": "一句话示例概要"
         }
       }
     }
